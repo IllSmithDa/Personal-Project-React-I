@@ -1,0 +1,6 @@
+.HomePage__header {
+    display: flex;
+    justify-content: center;
+    background-color: beige;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
