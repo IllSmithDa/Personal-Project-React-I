@@ -25,6 +25,18 @@
   font-size: large;
 }
 
+.App-right{
+	width: 300px; 
+	padding: 15px; 
+	margin:10px; 
+	background-color: orange; 
+	border: solid 2px grey;
+}
+.App-right__header {
+  display:flex;
+  flex-wrap: wrap;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
