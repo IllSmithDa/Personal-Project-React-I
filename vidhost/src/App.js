@@ -33,6 +33,9 @@ class App extends Component {
         <br></br>
         <br></br>
         <button> Submit </button>
+        <br/> <br/>
+        <input/> <tab/>
+        <button> Search </button>
         <h2 class = "HomePage__header"> Most Popular Videos </h2> 
         <br></br>
         <div>
