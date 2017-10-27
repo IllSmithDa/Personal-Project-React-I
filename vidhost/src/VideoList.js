@@ -1,7 +1,7 @@
 const VideoList = [
 {
     "id": 1,
-    "image_source": require('./Assets/test.jpg'),
+    "image_source" : require('./Assets/test.jpg'),
     "video_name" : "PS4 UnBoxing!!!",
     "channel_name" : "gaming_channel",
     "viewer_count" : "1.5M views",
@@ -15,7 +15,7 @@ const VideoList = [
 },
 {
     "id": 3,
-    "image_source": require('./Assets/attraction1.jpg'),
+    "image_source" : require('./Assets/attraction1.jpg'),
     "video_name" : 'Top Attractions for 2017',
     "channel_name" : "wowSoFun",
     "viewer_count" : "500K views",
