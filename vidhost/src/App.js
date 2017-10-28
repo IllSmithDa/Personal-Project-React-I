@@ -35,7 +35,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className = "HomePage__header"> Vidhost</h1>
+        <div className = "HomePage__header">
+        <h1 > Vidhost</h1>  
+        <div className = "HomePage__header-search">
+        <SearchBar post = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
+        </div>
+        <h1> Login </h1>
+          </div>
+
         <br></br>
         <label htmlFor = "username"> Username/Email </label>
         <br></br>
@@ -49,7 +56,6 @@ class App extends Component {
         <br></br>
         <button> Submit </button>
         <br/> <br/>
-        <SearchBar post = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
         <h2 className  = "HomePage__header"> Most Popular Videos </h2> 
         <br></br>
         <div>

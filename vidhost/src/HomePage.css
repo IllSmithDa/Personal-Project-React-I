@@ -1,8 +1,16 @@
 .HomePage__header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     background-color: beige;
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+
+}
+.HomePage__header-title {
+    font-size: 30px;
+}
+.HomePage__header-search {
+    padding: 10px;
+    margin: auto;
 }
 
 .HomePage-container {
@@ -36,7 +44,7 @@
     flex-direction: row;
   }
   .SearchBar{
-      
+
   }
   .SearchBar-field {
 
