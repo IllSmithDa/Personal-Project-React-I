@@ -8,8 +8,8 @@ class SearchBar extends Component {
     }
     render() {
         return(
-            <div className="SearchBar">  
-                <input/> <button onClick = {this.submitFilter} ref = {input => this.input = input}> search </button> 
+            <div >  
+                <input className="HomePage-SearchBar"/> <button onClick = {this.submitFilter} ref = {input => this.input = input}> search </button> 
             </div>
         );
     }

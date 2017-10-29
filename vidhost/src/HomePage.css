@@ -6,13 +6,19 @@
 
 }
 .HomePage__header-title {
-    font-size: 30px;
+    font-size: 20px;
+    padding-left: 10px;
 }
 .HomePage__header-search {
     padding: 10px;
     margin: auto;
+    width:4 00px;
 }
-
+.HomePage_header-un {
+    padding-right: 10px;
+    font-size: 15px;
+    align-items: flex-end;
+}
 .HomePage-container {
     display:flex;
     flex-wrap: wrap;
@@ -43,8 +49,8 @@
   .HomePage-div{
     flex-direction: row;
   }
-  .SearchBar{
-
+  .HomePage-SearchBar{
+    width: 300px;
   }
   .SearchBar-field {
 
