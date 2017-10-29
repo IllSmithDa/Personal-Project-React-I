@@ -26,10 +26,9 @@ class App extends Component {
       this.setState({displayedPosts: this.state.arrPopVideo});
     } else {
       const filteredPosts = this.state.arrPopVideo.filter((post) => {
-        post.video_name.includes(criterion);
-        this.setState({displayedPosts:filteredPosts})
+        post.videoname.includes(criterion) 
       });
-      
+      this.setState({displayedPosts: filteredPosts});
     }
   }
   render() {
@@ -40,7 +39,7 @@ class App extends Component {
             <h1 > Vidhost</h1>  
           </div>
           <div className = "HomePage__header-search">
-            <SearchBar post = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
+            <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
           </div>
           <div className = "HomePage_header-un">
             <h1> Login </h1>
@@ -56,7 +55,11 @@ class App extends Component {
         <h2 className  = "HomePage__header"> Most Popular Videos </h2> 
 
         <div>
-            <PopularVideo popularVid = {this.state.arrPopVideo} />
+          {this.state.displayedPosts.map((post) => {
+            return (
+                <PopularVideo post = {post}/>
+              );
+            })}
         </div>
       </div>
     );
@@ -64,3 +67,5 @@ class App extends Component {
 }
 
 export default App;
+
+//  <PopularVideo popularVid = {this.state.arrPopVideo} />
