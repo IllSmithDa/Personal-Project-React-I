@@ -4,6 +4,8 @@ import './HomePage.css';
 import VideoList from './VideoList';
 import PopularVideo from './PopularVideo';
 import SearchBar from './SearchBar';
+import CommentsForm from './components/CommentsForm'
+import Comments from './components/Comments'
 
 class App extends Component {
   constructor (props) {
@@ -25,9 +27,8 @@ class App extends Component {
     if (criterion === '') {
       this.setState({displayedPosts: this.state.arrPopVideo});
     } else {
-      const filteredPosts = this.state.arrPopVideo.filter((post) => {
-        post.videoname.includes(criterion) 
-      });
+      const filteredPosts = this.state.arrPopVideo.filter(post => 
+        post.videoname.includes(criterion));
       this.setState({displayedPosts: filteredPosts});
     }
   }
@@ -54,13 +55,17 @@ class App extends Component {
 
         <h2 className  = "HomePage__header"> Most Popular Videos </h2> 
 
-        <div>
+        <div className = "HomePage-container">
           {this.state.displayedPosts.map((post) => {
             return (
+              <div >
                 <PopularVideo post = {post}/>
+                </div>
               );
             })}
         </div>
+        <CommentsForm/>
+        <Comments/>
       </div>
     );
   }
