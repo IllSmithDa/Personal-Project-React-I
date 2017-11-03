@@ -74,7 +74,6 @@ class App extends Component {
         </div>
         <CommentsForm/>
         <Comments/>
-        <VideoLists/>
       </div>
     );
   }
