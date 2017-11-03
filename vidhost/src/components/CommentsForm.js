@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComment } from '../actions';
+import './CSS/CommentSection.css';
 class CommentsForm extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,7 @@ class CommentsForm extends Component {
     render() {
         return (
             <div>
-                <form onSubmit = {this.addComment}>
+                <form onSubmit = {this.addComment} className = "CommentSection-inputBar">
                     <input
                         onChange = {this.updateComments}
                         placeholder = "Add comment here"

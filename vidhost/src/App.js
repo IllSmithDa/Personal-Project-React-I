@@ -6,6 +6,7 @@ import PopularVideo from './PopularVideo';
 import SearchBar from './SearchBar';
 import CommentsForm from './components/CommentsForm'
 import Comments from './components/Comments'
+import VideoLists from './components/VideoLists';
 
 class App extends Component {
   constructor (props) {
@@ -45,16 +46,23 @@ class App extends Component {
           <div className = "HomePage_header-un">
             <h1> Login </h1>
           </div>
+          <div className = "HomePage-login">
+            <div>
+              <label htmlFor = "username"> Username/Email </label>
+              <input type = "text" id = "username"/>
+            </div>
+            <div  className = "HomePage-Password">
+              <label htmlFor = "password"> Password </label>
+              <input type = "text" id = "password"/>
+            </div>
+            <div className = "HomePage__Login-Submit">
+              <button className = "HomePage__Login-SubButton"> Submit </button>
+            </div>
+          </div>
         </div>
-
-        <label htmlFor = "username"> Username/Email </label>
-        <input type = "text" id = "username"/>
-        <label htmlFor = "password"> Password </label>
-        <input type = "text" id = "password"/>
-        <button> Submit </button>
-
-        <h2 className  = "HomePage__header"> Most Popular Videos </h2> 
-
+        <div className  = "HomePage__Tabs">
+          <h2> Most Popular Videos </h2> 
+        </div>
         <div className = "HomePage-container">
           {this.state.displayedPosts.map((post) => {
             return (
@@ -66,6 +74,7 @@ class App extends Component {
         </div>
         <CommentsForm/>
         <Comments/>
+        <VideoLists/>
       </div>
     );
   }

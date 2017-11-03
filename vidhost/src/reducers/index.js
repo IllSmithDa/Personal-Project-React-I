@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import commentReducer from './commentReducer'
+import commentReducer from './commentReducer';
+import videoReducer from './videoReducer';
 
 const rootReducer = combineReducers({
-    comments: commentReducer
+    comments: commentReducer,
+    videos: videoReducer
 });
 
 export default rootReducer;

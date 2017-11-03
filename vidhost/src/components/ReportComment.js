@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reportComment } from '../actions';
+import './CSS/CommentSection.css'
 
 class ReportComment extends Component {
     reportComment() {
@@ -9,7 +10,7 @@ class ReportComment extends Component {
 
     render() {
         return(
-            <li>
+            <li class = "CommentSection-checkbox">
                 <input type = "checkbox" onChange = {this.reportComment.bind(this)} />
                 {this.props.comment.value}
             </li>

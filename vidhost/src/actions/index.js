@@ -1,5 +1,6 @@
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REPORT_COMMENT = 'REPORT_COMMENT';
+export const GET_VIDEO = 'GET_VIDEO';
 
 export const addComment = (comment) => {
     return {
@@ -12,5 +13,12 @@ export const reportComment = (index) => {
     return {
         type: REPORT_COMMENT,
         payload: index
+    }
+}
+
+export const getVideo  = (videoData) => {
+    return {
+        type: GET_VIDEO,
+        payload: videoData
     }
 }
