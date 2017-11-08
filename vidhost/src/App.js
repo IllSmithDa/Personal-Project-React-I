@@ -4,9 +4,10 @@ import './HomePage.css';
 import VideoList from './VideoList';
 import PopularVideo from './PopularVideo';
 import SearchBar from './SearchBar';
-import CommentsForm from './components/CommentsForm'
-import Comments from './components/Comments'
 import VideoLists from './components/VideoLists';
+import VideoPlayer from './components/VideoPlayer';
+import HomeTab from './components/HomeTab'
+import { Route, Link } from 'react-router-dom';
 
 class App extends Component {
   constructor (props) {
@@ -38,7 +39,7 @@ class App extends Component {
       <div>
         <div className = "HomePage__header">
           <div className = "HomePage__header-title">
-            <h1 > Vidhost</h1>  
+            <Link to = "/"><h1 > Vidhost</h1> </Link>  
           </div>
           <div className = "HomePage__header-search">
             <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
@@ -72,8 +73,8 @@ class App extends Component {
               );
             })}
         </div>
-        <CommentsForm/>
-        <Comments/>
+        <VideoLists/>
+        <Route path = '/player' component = {VideoPlayer}/>
       </div>
     );
   }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVideo } from '../actions';
-
+import VideoList from '../VideoList';
+import { Link } from 'react-router-dom';
 class VideoLists extends Component {
     componentDidMount() {
-        this.props.getVideo();
+        console.log(VideoList);
+        this.props.getVideo(VideoList);
     }
 
     render() {
@@ -14,8 +16,10 @@ class VideoLists extends Component {
                     return (
                         <div key = {post.id} className = "HomePage-key"> 
                             <div className = "HomePage-div">
+                                <Link to = '/player'>
                                 <img src = {post.image_source} className = "HomePage-videoImage" alt = ''/>
-                                <p1 className  = "HomePage-videoName"> {post.videoname} </p1>
+                                </Link>
+                                <Link to = '/player' className  = "HomePage-videoName"> {post.videoname} </Link>
                                 <div>
                                     <p2 className = "HomePage-channelName"> {post.channel_name}</p2> <br/>
                                     <p3 className = "HomePage-viewerCount"> {post.viewer_count} </p3>
@@ -29,4 +33,10 @@ class VideoLists extends Component {
     }
 }
 
-export default connect(null, { getVideo })(VideoLists);
+const mapStateToProps = (state) => {
+    return {
+        videos: state.videos
+    }
+}
+
+export default connect(mapStateToProps, { getVideo })(VideoLists);
