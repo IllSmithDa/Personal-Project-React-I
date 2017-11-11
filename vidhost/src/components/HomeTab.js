@@ -1,18 +1,43 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
-
+import SearchBar from './SearchVideo';
+import VideoList from '../VideoList';
 class HomeTab extends Component {
-    
+  constructor (props) {
+    super(props);
+    this.state = {
+      arrPopVideo: [],
+      displayedPosts: []
+    } 
+
+    this.filterPosts = this.filterPosts.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({arrPopVideo: VideoList, displayedPosts: VideoList});
+  }
+
+  filterPosts(criterion) {
+    //if criterion is empty 
+    if (criterion === '') {
+      this.setState({displayedPosts: this.state.arrPopVideo});
+    } else {
+      const filteredPosts = this.state.arrPopVideo.filter(post => 
+        post.videoname.includes(criterion));
+      this.setState({displayedPosts: filteredPosts});
+    }
+  }
+
     render(){
         return(
               <div className = "HomePage__header">
                 <div className = "HomePage__header-title">
                   <Link to = "/">
-                  <h1 > Vidhost</h1>
+                  <h1 > <img src = {require("./Assets/play.png")} width = "25px" height = "25px"/>Vidhost</h1>
                   </Link>  
                 </div>
                 <div className = "HomePage__header-search">
-                <input/>
+                <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
               </div>
               <div className = "HomePage_header-un">
                 <h1> Login </h1>

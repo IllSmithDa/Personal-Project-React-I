@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import './HomePage.css';
 import VideoList from './VideoList';
 import PopularVideo from './PopularVideo';
@@ -39,7 +38,7 @@ class App extends Component {
       <div>
         <div className = "HomePage__header">
           <div className = "HomePage__header-title">
-            <Link to = "/"><h1 > Vidhost</h1> </Link>  
+            <Link to = "/"><h1> <img src = {require("../src/Assets/play.png")} width = "25px" height= "25px"/>Vidhost</h1> </Link>  
           </div>
           <div className = "HomePage__header-search">
             <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
@@ -73,7 +72,7 @@ class App extends Component {
               );
             })}
         </div>
-        <VideoLists/>
+        <VideoLists/> 
         <Route path = '/player' component = {VideoPlayer}/>
       </div>
     );

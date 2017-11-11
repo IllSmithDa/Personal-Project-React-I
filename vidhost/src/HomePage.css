@@ -3,18 +3,16 @@
     justify-content: space-between;
     background-color: beige;
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-
 }
 .HomePage__header-title {
-    font-size: 20px;
+    font-size: 15px;
     padding-left: 10px;
+    text-decoration: none;
     
 }
 .HomePage__header-search {
     padding: 10px;
     margin: auto;
-
-    
 }
 .HomePage_header-un {
     padding-right: 10px;
@@ -46,7 +44,7 @@
 }
 .HomePage__Tabs {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
+    font-size: 15px;
     padding-left: 15px;
 }
 /* flexbox only seems to work if the container and its children all have 
@@ -65,10 +63,10 @@
     font-weight:bolder;
   }
   .HomePage-channelName {
-    
+    font-size: 15px;
   }
   .HomePage-viewerCount {
-
+    font-size: 13px;
   }
   .HomePage-div{
     flex-direction: row;

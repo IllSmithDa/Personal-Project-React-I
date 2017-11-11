@@ -1,6 +1,7 @@
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REPORT_COMMENT = 'REPORT_COMMENT';
 export const GET_VIDEO = 'GET_VIDEO';
+export const FIND_VIDEO = 'FIND_VIDEO';
 
 export const addComment = (comment) => {
     return {
@@ -21,4 +22,8 @@ export const getVideo  = (videoData) => {
         type: GET_VIDEO,
         payload: videoData
     }
+}
+export const findVideo = () => {
+
+    
 }
