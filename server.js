@@ -5,10 +5,10 @@ const cors = require('cors');
 
 const server = express();
 const routes = require('./api/routes/routes')
-const port = 6000;
+const port = 5000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/video-list')
+mongoose.connect('mongodb://localhost/video-list', { useMongoClient: true });
 
 server.use(bodyParser.json());
 server.use(cors());

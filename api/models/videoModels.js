@@ -1,23 +1,16 @@
 const mongoose = require('mongoose');
-const VideoSchema = new mongoose.Schema({
-  id:{
-    type: Number,
-    required: true
-  },
+const Schema = mongoose.Schema
+const VideoSchema = new Schema({
+  id: Number,
   image_source:{
     type: String,
     required: true
   },
-  videoname: {
+  video_name: {
     type: String,
     required: true
   },
-  channel_name: {
-    type: String,
-    required: true
-  },
-  viewer_count: {
-    type: Number,
-    required: true
-  }
+  channel_name: String,
+  viewer_count: Number,
 });
+module.exports = mongoose.model('Video', VideoSchema);
