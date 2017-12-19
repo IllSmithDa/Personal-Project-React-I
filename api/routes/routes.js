@@ -2,9 +2,9 @@ const videoControllers = require('../controllers/videoControllers');
 
 module.exports = (app) => {
   app
-    .route('/create-video')
+    .route('/create_video')
     .post(videoControllers.videoCreate);
   app
-    .route('/list-videos')
+    .route('/list_videos')
     .get(videoControllers.getVideoList)
 }

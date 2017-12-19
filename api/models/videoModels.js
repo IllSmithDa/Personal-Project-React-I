@@ -13,4 +13,8 @@ const VideoSchema = new Schema({
   channel_name: String,
   viewer_count: Number,
 });
+
+VideoSchema.methods.getVideoName = function() {
+  return this.video_name;
+}
 module.exports = mongoose.model('Video', VideoSchema);
