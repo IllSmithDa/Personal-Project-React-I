@@ -4,9 +4,8 @@ import VideoList from './VideoList';
 import PopularVideo from './PopularVideo';
 import SearchBar from './SearchBar';
 import VideoLists from './components/VideoLists';
-import VideoPlayer from './components/VideoPlayer';
 import HomeTab from './components/HomeTab'
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
   constructor (props) {
@@ -43,21 +42,17 @@ class App extends Component {
           <div className = "HomePage__header-search">
             <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
           </div>
-          <div className = "HomePage_header-un">
-            <h1> Login </h1>
-          </div>
+          <Link to = "/new-user">
+            <div className = "HomePage_header-un">
+              <h1> Click here to create new account </h1>
+            </div>
+          </Link>
+          <Link to = "/login">
+            <div className = "HomePage_header-un">
+              <h1> Click here to Login </h1>
+            </div>
+          </Link>
           <div className = "HomePage-login">
-            <div>
-              <label htmlFor = "username"> Username/Email </label>
-              <input type = "text" id = "username"/>
-            </div>
-            <div  className = "HomePage-Password">
-              <label htmlFor = "password"> Password </label>
-              <input type = "text" id = "password"/>
-            </div>
-            <div className = "HomePage__Login-Submit">
-              <button className = "HomePage__Login-SubButton"> Submit </button>
-            </div>
           </div>
         </div>
         <div className  = "HomePage__Tabs">
@@ -73,7 +68,7 @@ class App extends Component {
             })}
         </div>
         <VideoLists/> 
-        <Route path = '/player' component = {VideoPlayer}/>
+        
       </div>
     );
   }
