@@ -36,6 +36,10 @@ const updateProfilePic = (req, res) => {
       user.profilePictureName = writestream.name;
       user.save()
       .then(() => {
+        fs.unlink(`./api/controllers/server/${sampleFile.name}`, err => {
+          if (err) throw err;
+          console.log('file deleted!')
+        });
         res.writeHead(301, {Location: 'http://localhost:3000/my_channel/sam'})
         res.end();
       

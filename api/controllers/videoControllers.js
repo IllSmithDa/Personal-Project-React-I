@@ -20,7 +20,7 @@ const uploadVideo = (req, res) => {
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.video_file;
   // console.log(req);
-
+  
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(`./api/controllers/server/${sampleFile.name}`, function(err) {
     if (err) return res.status(500).send(err);
@@ -30,6 +30,11 @@ const uploadVideo = (req, res) => {
 
   let readStream = fs.createReadStream(`./api/controllers/server/${sampleFile.name}`).pipe(writestream)
   
+  fs.unlink(`./api/controllers/server/${sampleFile.name}`, err => {
+    if (err) throw err;
+    console.log('file deleted!')
+  });
+
   readStream.on('error', function (err) {
     console.log('An error occurred!', err);
     throw err;
