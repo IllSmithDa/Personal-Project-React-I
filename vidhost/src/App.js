@@ -4,6 +4,7 @@ import VideoList from './VideoList';
 import PopularVideo from './PopularVideo';
 import SearchBar from './SearchBar';
 import VideoLists from './components/VideoLists';
+import RealVideoPlayer from './components/RealVideoPlayer';
 import HomeTab from './components/HomeTab'
 import { Link } from 'react-router-dom';
 

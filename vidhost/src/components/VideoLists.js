@@ -3,7 +3,18 @@ import { connect } from 'react-redux';
 import { getVideo } from '../actions';
 import VideoList from '../VideoList';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 class VideoLists extends Component {
+  constructor() {
+      super();
+      this.state = {
+        videoObject: [
+          {videoName: '',
+          videoPreviewImg:'',
+          }
+        ]
+      }
+  }
     componentDidMount() {
         console.log(VideoList);
         this.props.getVideo(VideoList);

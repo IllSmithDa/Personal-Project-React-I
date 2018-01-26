@@ -14,13 +14,12 @@ const updateProfilePic = (req, res) => {
     return res.status(400).send('No files were uploaded.');
   
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let sampleFile = req.files.sampleFile;
+  let sampleFile = req.files.profPictureFile;
   
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(`./api/controllers/server/${sampleFile.name}`, function(err) {
     if (err) return res.status(500).send(err);
   });
-  console.log(sampleFile.name);
   let writestream = gfs.createWriteStream({ filename: sampleFile.name });
   let readStream = fs.createReadStream(`./api/controllers/server/${sampleFile.name}`).pipe(writestream)
   
@@ -33,15 +32,14 @@ const updateProfilePic = (req, res) => {
     User.findOne({username})
     .exec()
     .then(user => {
-      console.log(writestream.id)
-      console.log(writestream.name)
       user.profilePicture = writestream.id;
       user.profilePictureName = writestream.name;
-      console.log(user.profilePicture)
-      console.log(user.profilePictureName)
       user.save()
       .then(() => {
-        res.json({whatsuccess: true})
+        res.writeHead(301, {Location: 'http://localhost:3000/my_channel/sam'})
+        res.end();
+      
+        
       })
       .catch(err => {
         res.json({ error: err.message });

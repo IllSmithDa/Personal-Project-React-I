@@ -7,7 +7,7 @@ module.exports = (app) => {
     .route('/upload_video/:username')
     .post(videoControllers.uploadVideo);
   app
-    .route('/list_videos')
+    .route('/video_list/:username')
     .get(videoControllers.getVideoList)
   app
     .route('/media_create')
