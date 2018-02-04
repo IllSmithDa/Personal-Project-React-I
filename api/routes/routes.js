@@ -9,6 +9,9 @@ module.exports = (app) => {
   app
     .route('/video_list/:username')
     .get(videoControllers.getVideoList)
+  app 
+    .route('/streamVideo/:videoID')
+    .get(videoControllers.streamVideo)
   app
     .route('/media_create')
     .post(testControllers.createMedia)

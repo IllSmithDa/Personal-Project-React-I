@@ -17,27 +17,30 @@ export default class ListOfVideos extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
     let videoUrl = `http://localhost:5000/video_list/${getId}`;
+    console.log(videoUrl)
     axios
       .get(`http://localhost:5000/video_list/${getId}`)
       .then(data => {
         let videoData = data.data.videoList;
         videoData.map((post) => {
-          this.state.videoList.push({videoName: post.videoName})
+          this.state.videoList.push({videoName: post.videoName, videoID: post.videoID})
         });
-        console.log(this.state.videoList)
+      //  console.log(this.state.videoList[0]._id)
       })
       .catch(err => {
         console.log(err);
       });
   };
+  // grab video data and pass it to the next component which is RealVideo Player 
   render() {
     return(
       <div>
         {this.state.videoList.map((post)=> {
           return(
             <div>
-              <Link to = "/video_player">
+              <Link to = {`/video_player/${post.videoID}`} getVideoName={post.videoName}>
               <h1> {post.videoName} </h1>
+               {post.videoID}
               </Link>
             </div>
           )

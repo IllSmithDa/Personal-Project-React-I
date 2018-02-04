@@ -13,12 +13,14 @@ export default class Channel extends Component {
       profilePictureUrl:'',
       uploadImageUrl: '',
       uploadVideoUrl: '',
+      videoName:'',
       channeVideoList: []
     }
     this.handleFilePath = this.handleFilePath.bind(this);
     this.setTimer = this.setTimer.bind(this);
     // this.getProfilePicture = this.getProfilePicture.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.handleVideoName = this.handleVideoName.bind(this);
   }
   handleFilePath(e) {
     let file = e.target.defaultValue
@@ -28,7 +30,9 @@ export default class Channel extends Component {
       console.log('image loaded')
     }, 5000 )
   };
+  handleUploadVideo() {
 
+  }
   componentWillMount() {
     // grabs the current url
     let getId = window.location.href;
@@ -44,7 +48,7 @@ export default class Channel extends Component {
       .then((data) => { 
         // grab the encoded data, decode it and set it as the picture url 
         let newData = data.data;
-        console.log('componentMountWillMount was called');
+ //       console.log('componentMountWillMount was called');
         let newString = `data:image/png;base64, ${newData}`;
         newString = newString.replace(/\s/g, "");
         this.setState({profilePictureUrl: newString});  
@@ -55,11 +59,21 @@ export default class Channel extends Component {
   
   }
   handleVideoName(e) {
+     // grabs the current url
+     let getId = window.location.href;
+     // grabs username inside current url 
+     getId = getId.split("/").pop();
 
+    this.setState({ videoName: e.target.value })
+    // let videoName = e.target.value;
+    console.log(this.state.videoName);
+   // let videoUrl = `http://localhost:5000/upload_video/${getId}/${this.state.videoName}`;
+  //  this.setState({ uploadVideoUrl:videoUrl });
+  //  console.log(this.state.uploadVideoUrl);
   }
   openModal() {
-    console.log(this.state.profilePictureUrl)
-    console.log(this.state.uploadVideoUrl)
+   // console.log(this.state.profilePictureUrl)
+ //  console.log(this.state.uploadVideoUrl)
     let modal = document.getElementById('myModal');
     modal.style.display = "block";
   }
@@ -79,7 +93,7 @@ export default class Channel extends Component {
   render() {
     return(
       <div>
-        <h1>{this.state.username} Channel</h1>
+        <h1>{this.state.username}'s Channel</h1>
         <div>
           <div>
           <img src = {this.state.profilePictureUrl} alt="profile_picture" width = '128' height = '128'/>
@@ -109,14 +123,14 @@ export default class Channel extends Component {
                 <h1>Upload New Video Here</h1>
                 <form ref='uploadForm' 
                   id='uploadForm' 
+                  name = {this.state.videoName}
                   action= {this.state.uploadVideoUrl}
                   method='post' 
                   encType="multipart/form-data"
                   >
-                  <h2> {'Enter Video Name (does not work yet!!): '}
+                  <h2> {'Enter Video Name: '}
                   <input tupe= 'text' name='videoName' onChange = {this.handleVideoName}/>
                   </h2>
-                  
                   <input type="file" name="video_file" onChange = {this.setTimer}/>
                   <input type='submit' value='Upload Video'/>
                 </form> 

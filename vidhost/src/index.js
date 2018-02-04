@@ -22,7 +22,7 @@ ReactDOM.render(
             <Route path = '/new-user' component = {NewAccount}/>
             <Route path = '/login' component = {LoginMenu}/>    
             <Route path = '/my_channel/:id' component = {Channel}/> 
-            <Route path = '/video_player' component = {RealVideoPlayer}/>
+            <Route path = '/video_player/:video_id' component = {RealVideoPlayer}/>
         </div>
     </Router>
 </Provider>, 

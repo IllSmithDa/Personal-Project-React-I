@@ -14,7 +14,7 @@ const createMedia = (req, res) => {
  // const gfs = gridfs(connection.db);
   
   const { fileData } = req.body;
-  console.log(fileData);
+ // console.log(fileData);
 
   const newTest = new TestModel({ imageData: fileData });
   
