@@ -37,12 +37,12 @@ export default class NewAccount extends Component {
     return(
       <div>
         <div className="form-group">
-          Enter username and password 
-          <label htmlFor="name">username:</label>
+          <h1> Create Your Vidhost Account </h1>
+          <label htmlFor="name"> Choose your username:</label>
           <input type="name" className="form-control" id="name" value = { this.state.username } onChange = { this.handleSetUsername }/>
         </div>
         <div className="form-group">
-          <label htmlFor="pwd">Password:</label>
+          <label htmlFor="pwd">Create your password:</label>
           <input type="password" className="form-control" id="pwd" value = { this.state.password } onChange = { this.handleSetPassword }/>
         </div>
         <button type="submit" className="btn btn-default" onClick = { this.createUser }>Submit</button>

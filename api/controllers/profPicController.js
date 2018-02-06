@@ -9,7 +9,7 @@ const updateProfilePic = (req, res) => {
   const connection = mongoose.connection;
   gridfs.mongo = mongoose.mongo;
   const gfs = gridfs(connection.db);
-
+  
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
   
@@ -40,7 +40,7 @@ const updateProfilePic = (req, res) => {
           if (err) throw err;
           console.log('file deleted!')
         });
-        res.writeHead(301, {Location: 'http://localhost:3000/my_channel/sam'})
+        res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
         res.end();
       
         

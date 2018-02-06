@@ -38,6 +38,7 @@ export default class Channel extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
+    console.log(getId);
     // two urls which will later make requests to
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
