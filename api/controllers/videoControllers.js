@@ -1,5 +1,4 @@
 const gridfs = require('gridfs-stream');
-const db_filename = "test1.png";
 const local_file = "./api/controllers/test.jpg";
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
@@ -20,26 +19,28 @@ const uploadVideo = (req, res) => {
   
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.video_file;
+  const { username } = req.params;
+  const { videoName } = req.body;
   // console.log(req);
  //console.log(sampleFile.name);
  /// console.log(sampleFile.name);
  //console.log(req.files);
   // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv(`./api/controllers/server/${sampleFile.name}`, function(err) {
+  sampleFile.mv(`./api/controllers/server/${videoName}`, function(err) {
     if (err) return res.status(500).send(err);
   });
  
-  let writestream = gfs.createWriteStream({ filename: sampleFile.name });
 
-  let readStream = fs.createReadStream(`./api/controllers/server/${sampleFile.name}`).pipe(writestream);
+
+  let writestream = gfs.createWriteStream({ filename: videoName });
+
+  let readStream = fs.createReadStream(`./api/controllers/server/${videoName}`).pipe(writestream);
 
   readStream.on('error', function (err) {
     console.log('An error occurred!', err);
     throw err;
   });
   writestream.on('close', (file) => {
-    const { username } = req.params;
-    const { videoName } = req.body;
     User.findOne({username})
     .exec()
     .then(user => {
@@ -52,6 +53,10 @@ const uploadVideo = (req, res) => {
         videoListItem
           .save()
           .then(() => { 
+            fs.unlink(`./api/controllers/server/${videoName}`, err => {
+              if (err) throw err;
+              console.log('file deleted!')
+            });
             res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
             res.end();
           })
@@ -88,27 +93,41 @@ const streamVideo = (req, res) => {
   // Check file exist on MongoDB
   const { videoID } = req.params;
   Video.findOne({videoId: videoID})
+  
     .then((data) => {
-     res.status(200).json(data);
+      console.log(data.videoName)
+      gfs.exist({filename: data.videoName}, (err, file) => {
+        if (err || !file) {
+            res.send('File Not Found');
+        } else {
+          let readStream = gfs.createReadStream({ _id: videoID });
+          // console.log(readStream);
+          //res.json(readStream);
+          // console.log(res);
+           readStream.pipe(res);
+        }
+      });
     })
     .catch(err => {
       res.status(STATUS_USER_ERROR).json({ error: err.message});
     })
+} 
 
-  gfs.exist({_id: videoID }, (err, file) => {
-    if (err || !file) {
-        res.send('File Not Found');
-    } else {
-      let readStream = gfs.createReadStream({ _id: videoID });
-      // console.log(readStream);
-      // res.json(readStream);
-      // readstream.pipe(res);
-    }
-  });
+const getVideoInfo = (req, res) => {
+    // Check file exist on MongoDB
+    const { videoID } = req.params;
+    Video.findOne({videoId: videoID})
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      res.status(STATUS_USER_ERROR).json({ error: err.message});
+    })
 }
 
 module.exports = {
   getVideoList,
   uploadVideo, 
-  streamVideo
+  streamVideo,
+  getVideoInfo
 }

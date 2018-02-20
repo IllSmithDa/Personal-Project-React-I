@@ -4,6 +4,8 @@ import Comments from './Comments';
 import HomeTab from './HomeTab';
 import ListOfVideos from './ListOfVideos';
 import axios from 'axios';
+import { Player } from 'video-react';
+
 class RealVideoPlayer extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ class RealVideoPlayer extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
      console.log(getId);
-    axios.get(`http://localhost:5000/streamVideo/${getId}`)
+    axios.get(`http://localhost:5000/videoInfo/${getId}`)
       .then(data => {
         this.setState({videoID: getId, videoName: data.data.videoName, 
         videoUploader: data.data.userName
@@ -42,9 +44,10 @@ class RealVideoPlayer extends Component {
           <HomeTab/>
           <h1>{this.state.videoName}</h1>
           <h2> {this.state.videoUploader} </h2>
-          <video width = "800" height = "600" controls>
-              <source src = { require("../Assets/VTest1.mp4")} type="video/mp4"/>
-          </video>
+          <Player
+           playsInline
+           src={`http://localhost:5000/streamVideo/${this.state.videoID}`}
+          />
           <CommentsForm/>
           <Comments/>
       </div>
@@ -52,4 +55,9 @@ class RealVideoPlayer extends Component {
   }
 }
 
+/*
+<video width = "800" height = "600" controls>
+<source src = { require("../Assets/VTest1.mp4")} type="video/mp4"/>
+</video>
+*/
 export default RealVideoPlayer;

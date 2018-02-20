@@ -19,6 +19,7 @@
   "homepage": "https://github.com/IllSmithDa/Personal-Project-React-I#readme",
   "dependencies": {
     "GridFS": "^0.3.0",
+    "binaryjs": "^0.2.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",

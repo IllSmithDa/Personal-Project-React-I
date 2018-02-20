@@ -6,8 +6,7 @@ const cors = require('cors');
 const gridfs = require('gridfs-stream');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
-const db_filename = "demo1.jpg";
-const local_file = "./test.jpg";
+
 
 const server = express();
 const routes = require('./api/routes/routes')
