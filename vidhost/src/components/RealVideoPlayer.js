@@ -4,7 +4,10 @@ import Comments from './Comments';
 import HomeTab from './HomeTab';
 import ListOfVideos from './ListOfVideos';
 import axios from 'axios';
-import { Player } from 'video-react';
+import { Player, BigPlayButton  } from 'video-react';
+import './CSS/videoPlayer.css';
+import '../../node_modules/video-react/dist/video-react.css' // import css
+
 
 class RealVideoPlayer extends Component {
   constructor(props) {
@@ -40,20 +43,24 @@ class RealVideoPlayer extends Component {
 
   render() {
       return(
-      <div>
+      <div >
           <HomeTab/>
           <h1>{this.state.videoName}</h1>
-          <h2> {this.state.videoUploader} </h2>
           <Player
-           playsInline
            src={`http://localhost:5000/streamVideo/${this.state.videoID}`}
-          />
-          <CommentsForm/>
-          <Comments/>
+           className='video-player'
+           fluid={false} width={896} height={504}>
+            <BigPlayButton position="center" />
+           </Player>
+           <h2> {this.state.videoUploader} </h2>
+           <CommentsForm/>
+           <Comments/>
       </div>
       );
   }
 }
+
+
 
 /*
 <video width = "800" height = "600" controls>
