@@ -16,6 +16,9 @@ module.exports = (app) => {
     .route('/videoInfo/:videoID')
     .get(videoControllers.getVideoInfo)
   app
+    .route('/addComment/:videoID')
+    .post(videoControllers.addComment)
+  app
     .route('/media_create')
     .post(testControllers.createMedia)
   app
@@ -27,6 +30,9 @@ module.exports = (app) => {
   app
     .route('/find_user')
     .post(userControllers.findUser)
+  app
+    .route('/get_username')
+    .get(userControllers.getUserName)
   app
     .route('/upload_profile_pic/:username')
     .post(profPicController.updateProfilePic)

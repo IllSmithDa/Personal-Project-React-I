@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { setTimeout } from 'timers';
+import RealVideoPlayer from './RealVideoPlayer';
 
 export default class LoginMenu extends Component {
   constructor() {
@@ -8,6 +9,7 @@ export default class LoginMenu extends Component {
     this.state = {
       username: '',
       password: '',
+      loginName: new RealVideoPlayer()
     }
     this.handleSetUsername = this.handleSetUsername.bind(this);
     this.handleSetPassword = this.handleSetPassword.bind(this);
@@ -25,6 +27,7 @@ export default class LoginMenu extends Component {
     axios.post('http://localhost:5000/find_user', user)
     .then(data => {
       setTimeout(() => {
+        this.state.loginName.setUserName(this.state.username);
         window.location = `/my_channel/${this.state.username}`;
       })
     })

@@ -10,14 +10,30 @@ const VideoSchema = new Schema({
     type: String,
     required: true
   },
-  videoId :{
+  videoID :{
     type: String,
     required: true,
   },
   userName : {
     type: String,
     required: true
-  }
+  },
+  comments : [{
+    username:{
+      type: String
+    },
+    comment: {
+      type: String
+    },
+    replies: [{
+      username:{
+        type: String
+      },
+      comment: {
+        type: String
+      }
+    }]
+  }]
 ///  channel_name: String,
 //  viewer_count: Number,
 });

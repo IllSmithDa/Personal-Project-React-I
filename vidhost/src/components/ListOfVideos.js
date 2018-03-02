@@ -9,6 +9,7 @@ export default class ListOfVideos extends Component {
       username: '',
       videoList: []
     }
+    this.deleteVideo = this.deleteVideo.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +22,8 @@ export default class ListOfVideos extends Component {
     axios
       .get(`http://localhost:5000/video_list/${getId}`)
       .then(data => {
+        this.setState({ username: getId });
+        console.log(this.state.username);
         let videoData = data.data.videoList;
         videoData.map((post) => {
           this.state.videoList.push({videoName: post.videoName, videoID: post.videoID})
@@ -31,6 +34,9 @@ export default class ListOfVideos extends Component {
         console.log(err);
       });
   };
+  deleteVideo(videoId) {
+   console.log(videoId);
+  }
   // grab video data and pass it to the next component which is RealVideo Player 
   render() {
     return(
@@ -38,10 +44,12 @@ export default class ListOfVideos extends Component {
         {this.state.videoList.map((post)=> {
           return(
             <div>
-              <Link to = {`/video_player/${post.videoID}`} getVideoName={post.videoName}>
+              <Link to = {`/video_player/${post.videoID}`} getVideoName={post.videoName} username={this.state.username}>
               <h1> {post.videoName} </h1>
                {post.videoID}
               </Link>
+               
+              <button onClick={this.deleteVideo(post.videoID)}>Delete Video </button>
             </div>
           )
         })}

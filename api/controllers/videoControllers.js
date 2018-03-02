@@ -49,7 +49,7 @@ const uploadVideo = (req, res) => {
       user.videoList.push(newVideo)
       user.save()
       .then(() => {
-        const videoListItem = new Video({videoId: writestream.id, videoName: videoName, userName: username});
+        const videoListItem = new Video({videoID: writestream.id, videoName: videoName, userName: username});
         videoListItem
           .save()
           .then(() => { 
@@ -92,7 +92,7 @@ const streamVideo = (req, res) => {
 
   // Check file exist on MongoDB
   const { videoID } = req.params;
-  Video.findOne({videoId: videoID})
+  Video.findOne({videoID: videoID})
   
     .then((data) => {
       console.log(data.videoName)
@@ -116,7 +116,7 @@ const streamVideo = (req, res) => {
 const getVideoInfo = (req, res) => {
     // Check file exist on MongoDB
     const { videoID } = req.params;
-    Video.findOne({videoId: videoID})
+    Video.findOne({videoID: videoID})
     .then((data) => {
       res.status(200).json(data);
     })
@@ -125,9 +125,42 @@ const getVideoInfo = (req, res) => {
     })
 }
 
+const addComment = (req, res) => {
+  const {comment} = req.body;
+  const {videoID} = req.params;
+//  const newComment = { comment };
+  console.log(comment)
+  Video.findOne({videoID: videoID})
+    .then((video) => {
+      // alter existing video data maybe using Video.update
+      if (video === null) {
+        throw new Error();
+      }
+      const comments = video.comments;
+      comments.push({comment: comment});
+      video
+        .save()
+        .then((data) => {
+          // return data back to the client side
+          res.json(data);
+        })
+        .catch((err) => {
+          res.json({ error: err.message });
+        });
+    })
+    .catch((err) => {
+      res.json({ error: err.message });
+    });
+};
+const deleteVideo = (req, res) => {
+  const 
+}
+
 module.exports = {
   getVideoList,
   uploadVideo, 
   streamVideo,
-  getVideoInfo
+  getVideoInfo,
+  addComment,
+  deleteVideo
 }

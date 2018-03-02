@@ -3,6 +3,8 @@ import CommentsForm from './CommentsForm';
 import Comments from './Comments';
 import HomeTab from './HomeTab';
 import ListOfVideos from './ListOfVideos';
+import CommentList from './CommentList';
+import Login from './Login';
 import axios from 'axios';
 import { Player, BigPlayButton  } from 'video-react';
 import './CSS/videoPlayer.css';
@@ -17,8 +19,14 @@ class RealVideoPlayer extends Component {
       videoID:'',
       videoUploader:'',
       videoData: '',
-      videoComments:''
+      videoComments:'',
+      comments: [],
+      comment: '',
+      username: '',
     }
+  //  this.setState({username: this.props.username})
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.addComment = this.addComment.bind(this);
   }
   componentDidMount() {
    // console.log('hello');
@@ -26,12 +34,24 @@ class RealVideoPlayer extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
-     console.log(getId);
+    // console.log(getId);
+    console.log(this.props.username)
+     axios.get('http://localhost:5000/get_username')
+     .then(data => {
+       console.log(data)
+     })
+     .catch(err => {
+       console.log(err);
+     })
     axios.get(`http://localhost:5000/videoInfo/${getId}`)
       .then(data => {
         this.setState({videoID: getId, videoName: data.data.videoName, 
         videoUploader: data.data.userName
         });
+        for (let i = 0; data.data.comments[i]; i++) {
+          this.state.comments.push(data.data.comments[i].comment);
+         console.log(data.data.comments[i].comment)
+        }
       })
       .catch(err => {
         console.log(err);
@@ -40,12 +60,42 @@ class RealVideoPlayer extends Component {
    // this.setState({ videoName: this.props.getVideoName, videoID: this.props.getVideoID });
    //  console.log(this.state.videoName, this.state.videoID);
   }
+  setUserName(userName) {
+    this.setState({username: userName});
+  }
+  handleTextChange(e) {
+    let comment = e.target.value;
+    this.setState({ comment: comment});
+    console.log(this.state.comment)
+  }
+  addComment() {
+    // to do 
+    // make a request to post the comment to the database and then create 
+    // a new class where it will read the comment from database onto the video itself.
+    let getId = window.location.href;
+    // grabs username inside current url 
+    getId = getId.split("/").pop();
 
+    const comment = { comment: this.state.comment }
+    axios.post(`http://localhost:5000/addComment/${getId}`, comment)
+      .then(data => {
+        let videoComments = []
+        for (let i = 0; i < data.data.comments.length; i++){
+          this.state.comments.push(data.data.comments[i]);
+          console.log(this.state.comments[i])
+        }
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   render() {
       return(
       <div >
           <HomeTab/>
           <h1>{this.state.videoName}</h1>
+          <p>{this.state.comments[0]}</p>
           <Player
            src={`http://localhost:5000/streamVideo/${this.state.videoID}`}
            className='video-player'
@@ -53,8 +103,13 @@ class RealVideoPlayer extends Component {
             <BigPlayButton position="center" />
            </Player>
            <h2> {this.state.videoUploader} </h2>
-           <CommentsForm/>
-           <Comments/>
+          <div>
+            <textarea onChange = {this.handleTextChange} placeholder = "Add comment here"></textarea>
+            <button onClick={this.addComment}>submit</button>
+          </div>
+          <div>
+            <CommentList />
+          </div>
       </div>
       );
   }

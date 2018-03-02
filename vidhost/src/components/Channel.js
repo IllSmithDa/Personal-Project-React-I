@@ -38,10 +38,18 @@ export default class Channel extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
-    console.log(getId);
+   // console.log(getId);
     // two urls which will later make requests to
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
+
+    axios.get('http://localhost:5000/get_username')
+    .then(data => {
+      console.log(data.data.username)
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
     this.setState({ username: getId, uploadImageUrl: profileUrl, uploadVideoUrl: videoUrl});  
     // request to grab the profile picture id from the server database
