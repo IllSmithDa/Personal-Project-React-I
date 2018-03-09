@@ -4,7 +4,7 @@ import ImageUploader from 'react-images-upload';
 import { read } from 'fs';
 import './CSS/ModalBox.css'
 import ListOfVideos from './ListOfVideos';
-
+axios.defaults.withCredentials = true;
 export default class Channel extends Component {
   constructor() {
     super();

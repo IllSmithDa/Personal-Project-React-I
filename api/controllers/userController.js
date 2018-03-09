@@ -1,6 +1,7 @@
 // const mongoose = require('mongoose');
 const User = require('../models/userModel');
 
+// add more requests status
 const STATUS_USER_ERROR = 422;
 
 const createUser = (req, res) => {
@@ -27,9 +28,8 @@ const findUser = (req, res) => {
         res.status(422).json({error: err.message})
       }
       req.session.username = username;
-      req.session.save();
-      console.log(req.session);
-      console.log(req.session.id);
+      console.log(req.session.username);
+      //console.log(req.session.id);
       res.json({success: true});
     })
     .catch((err) => {
@@ -38,11 +38,11 @@ const findUser = (req, res) => {
     });
 };
 const getUserName = (req, res) => {
-  //console.log(req.session.id);
-  //console.log(req.session.username)
+ // console.log(req.session.id);
+//  console.log(req.session)
   const { username } = req.session;
-  console.log(username);
-  res.json({username: req.session.username});
+  console.log(req.session.username);
+  res.json(req.session.username);
 };
 module.exports = {
   createUser,

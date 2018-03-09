@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+axios.defaults.withCredentials = true;
 export default class CommentLIst extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.username,
+      username: '',
       comments: []
     }
   }
@@ -16,15 +16,23 @@ export default class CommentLIst extends Component {
    let getId = window.location.href;
    // grabs username inside current url 
    getId = getId.split("/").pop();
-    console.log(getId);
    axios.get(`http://localhost:5000/videoInfo/${getId}`)
      .then(data => {
-       for (let i = 0; data.data.comments[i]; i++) {
-         this.state.comments.push(data.data.comments[i].comment);
-         console.log(data.data.comments[i].comment)
+       for (let i = 0; i <data.data.comments.length; i++) {
+         console.log(data.data.comments[i]);
+         this.state.comments.push(data.data.comments[i]);
+        // console.log(data.data.comments[i].comment)
        }
+
         //window.location = window.location.href;
-        
+        axios.get('http://localhost:5000/get_username')
+        .then(data => {
+          this.setState({ username: data.data});
+          console.log(this.state.username);;
+        })
+        .catch(err => {
+          console.log(err);
+        })
      })
      .catch(err => {
        console.log(err);
@@ -37,10 +45,10 @@ export default class CommentLIst extends Component {
   render() {
     return(
       <div>
-        {this.state.comments.map((post)=> {
+        {this.state.comments.map((post, index)=> {
           return(
             <div>
-                <p1>{post}</p1>
+              <p1>{post.username}: {post.comment}</p1>
             </div>
           )
         })}

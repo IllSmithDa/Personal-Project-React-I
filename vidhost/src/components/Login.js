@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { setTimeout } from 'timers';
 import RealVideoPlayer from './RealVideoPlayer';
-
+axios.defaults.withCredentials = true;
 export default class LoginMenu extends Component {
   constructor() {
     super();

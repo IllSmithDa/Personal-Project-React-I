@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Player, BigPlayButton  } from 'video-react';
 import './CSS/videoPlayer.css';
 import '../../node_modules/video-react/dist/video-react.css' // import css
-
+axios.defaults.withCredentials = true;
 
 class RealVideoPlayer extends Component {
   constructor(props) {
@@ -38,24 +38,26 @@ class RealVideoPlayer extends Component {
     console.log(this.props.username)
      axios.get('http://localhost:5000/get_username')
      .then(data => {
-       console.log(data)
-     })
-     .catch(err => {
-       console.log(err);
-     })
-    axios.get(`http://localhost:5000/videoInfo/${getId}`)
+       this.setState({ username: data.data})
+       console.log(data.data) 
+       axios.get(`http://localhost:5000/videoInfo/${getId}`)
       .then(data => {
         this.setState({videoID: getId, videoName: data.data.videoName, 
         videoUploader: data.data.userName
         });
         for (let i = 0; data.data.comments[i]; i++) {
           this.state.comments.push(data.data.comments[i].comment);
-         console.log(data.data.comments[i].comment)
+         //console.log(data.data.comments[i].comment)
         }
       })
       .catch(err => {
         console.log(err);
       })
+     })
+     .catch(err => {
+       console.log(err);
+     })
+    
 
    // this.setState({ videoName: this.props.getVideoName, videoID: this.props.getVideoID });
    //  console.log(this.state.videoName, this.state.videoID);
@@ -76,13 +78,14 @@ class RealVideoPlayer extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
 
-    const comment = { comment: this.state.comment }
+    const comment = { comment: this.state.comment, username:this.state.username }
     axios.post(`http://localhost:5000/addComment/${getId}`, comment)
       .then(data => {
         let videoComments = []
         for (let i = 0; i < data.data.comments.length; i++){
           this.state.comments.push(data.data.comments[i]);
-          console.log(this.state.comments[i])
+       //   console.log(this.state.comments[i])
+        
         }
 
       })
@@ -108,7 +111,7 @@ class RealVideoPlayer extends Component {
             <button onClick={this.addComment}>submit</button>
           </div>
           <div>
-            <CommentList />
+            <CommentList username={this.state.username}/>
           </div>
       </div>
       );

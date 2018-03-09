@@ -126,10 +126,10 @@ const getVideoInfo = (req, res) => {
 }
 
 const addComment = (req, res) => {
-  const {comment} = req.body;
+  const {comment, username} = req.body;
   const {videoID} = req.params;
 //  const newComment = { comment };
-  console.log(comment)
+  console.log(username)
   Video.findOne({videoID: videoID})
     .then((video) => {
       // alter existing video data maybe using Video.update
@@ -137,7 +137,7 @@ const addComment = (req, res) => {
         throw new Error();
       }
       const comments = video.comments;
-      comments.push({comment: comment});
+      comments.push({comment: comment, username: username});
       video
         .save()
         .then((data) => {
@@ -153,7 +153,7 @@ const addComment = (req, res) => {
     });
 };
 const deleteVideo = (req, res) => {
-  const 
+  
 }
 
 module.exports = {
