@@ -41,9 +41,7 @@ const updateProfilePic = (req, res) => {
           console.log('file deleted!')
         });
         res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
-        res.end();
-      
-        
+        res.end();  
       })
       .catch(err => {
         res.json({ error: err.message });

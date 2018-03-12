@@ -35,20 +35,24 @@ class RealVideoPlayer extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
     // console.log(getId);
-    console.log(this.props.username)
+   // console.log(this.props.username)
      axios.get('http://localhost:5000/get_username')
      .then(data => {
        this.setState({ username: data.data})
-       console.log(data.data) 
+      //console.log(data.data) 
        axios.get(`http://localhost:5000/videoInfo/${getId}`)
       .then(data => {
         this.setState({videoID: getId, videoName: data.data.videoName, 
         videoUploader: data.data.userName
         });
-        for (let i = 0; data.data.comments[i]; i++) {
-          this.state.comments.push(data.data.comments[i].comment);
-         //console.log(data.data.comments[i].comment)
+        for (let i = 0; i < data.data.comments.length; i++){
+          // console.log(data.data.comments[i].comment)
+           let videoObject = {commentUsername: data.data.comments[i].username, comment: data.data.comments[i].comment};
+          this.state.comments.push(videoObject);
         }
+        this.state.comments.map((post, index)=> {
+         console.log(post.comment);
+        })
       })
       .catch(err => {
         console.log(err);
@@ -81,13 +85,14 @@ class RealVideoPlayer extends Component {
     const comment = { comment: this.state.comment, username:this.state.username }
     axios.post(`http://localhost:5000/addComment/${getId}`, comment)
       .then(data => {
-        let videoComments = []
+        let videoComments = [];
         for (let i = 0; i < data.data.comments.length; i++){
-          this.state.comments.push(data.data.comments[i]);
-       //   console.log(this.state.comments[i])
-        
+          console.log(data.data.comments[i].comment)
+          let videoObject = {commentUsername: data.data.comments[i].username, comment: data.data.comments[i].comment};
+          videoComments.push(videoObject);
         }
-
+        this.setState({ comments: videoComments });
+        
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +103,6 @@ class RealVideoPlayer extends Component {
       <div >
           <HomeTab/>
           <h1>{this.state.videoName}</h1>
-          <p>{this.state.comments[0]}</p>
           <Player
            src={`http://localhost:5000/streamVideo/${this.state.videoID}`}
            className='video-player'
@@ -106,19 +110,22 @@ class RealVideoPlayer extends Component {
             <BigPlayButton position="center" />
            </Player>
            <h2> {this.state.videoUploader} </h2>
-          <div>
-            <textarea onChange = {this.handleTextChange} placeholder = "Add comment here"></textarea>
-            <button onClick={this.addComment}>submit</button>
-          </div>
-          <div>
-            <CommentList username={this.state.username}/>
+           <div>
+            <CommentList/>
           </div>
       </div>
       );
   }
 }
 
+/*
+<div>
+  <textarea onChange = {this.handleTextChange} placeholder = "Add comment here"></textarea>
+  <button onClick={this.addComment}>submit</button>
+</div>
+*/
 
+ //<CommentList username={this.state.username}/>
 
 /*
 <video width = "800" height = "600" controls>

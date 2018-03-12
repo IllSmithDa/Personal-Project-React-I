@@ -27,7 +27,16 @@ export default class NewAccount extends Component {
     axios
       .post('http://localhost:5000/user_create', newUser)
       .then(data => {
-        window.location = `/my_channel/${this.state.username}`;
+        const user = { username: this.state.username, password: this.state.password };
+        axios.post('http://localhost:5000/find_user', user)
+        .then(data => {
+          setTimeout(() => {
+            window.location = `/my_channel/${this.state.username}`;
+          })
+        })
+        .catch(err => {
+          console.log(err);
+        });
       })
       .catch(err => {
         console.log(err)
