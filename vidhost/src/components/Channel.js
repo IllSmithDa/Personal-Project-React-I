@@ -4,6 +4,7 @@ import ImageUploader from 'react-images-upload';
 import { read } from 'fs';
 import './CSS/ModalBox.css'
 import ListOfVideos from './ListOfVideos';
+import HomeTab from './HomeTab';
 axios.defaults.withCredentials = true;
 export default class Channel extends Component {
   constructor() {
@@ -43,14 +44,15 @@ export default class Channel extends Component {
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
 
+    /*
     axios.get('http://localhost:5000/get_username')
     .then(data => {
-      console.log(data.data.username)
+      // console.log(data.data.username)
     })
     .catch(err => {
       console.log(err);
     })
-
+    */
     this.setState({ username: getId, uploadImageUrl: profileUrl, uploadVideoUrl: videoUrl});  
     // request to grab the profile picture id from the server database
     axios.get(`http://localhost:5000/show_profile_pic/${getId}`)
@@ -75,7 +77,7 @@ export default class Channel extends Component {
 
     this.setState({ videoName: e.target.value })
     // let videoName = e.target.value;
-    console.log(this.state.videoName);
+   // console.log(this.state.videoName);
    // let videoUrl = `http://localhost:5000/upload_video/${getId}/${this.state.videoName}`;
   //  this.setState({ uploadVideoUrl:videoUrl });
   //  console.log(this.state.uploadVideoUrl);
@@ -102,6 +104,7 @@ export default class Channel extends Component {
   render() {
     return(
       <div>
+         <HomeTab/>
         <h1>{this.state.username}'s Channel</h1>
         <div>
           <div>
@@ -124,7 +127,7 @@ export default class Channel extends Component {
           </div>
         </div>
         <div>
-          <h1> List of Videos </h1>
+          <h1> Upload Video </h1>
             <button id="myBtn2" onClick={this.openModal2}> Upload Video </button>
             <div id="myModal2" className="modal">
               <div className="modal-content">
@@ -146,6 +149,7 @@ export default class Channel extends Component {
               </div>
             </div>
           </div>
+          <h1> Featured Videos </h1>
           <ListOfVideos/>
       </div>
     )

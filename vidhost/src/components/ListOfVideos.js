@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 axios.defaults.withCredentials = true;
+
 export default class ListOfVideos extends Component {
   constructor() {
     super();
@@ -17,18 +18,26 @@ export default class ListOfVideos extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
-    let videoUrl = `http://localhost:5000/video_list/${getId}`;
-    console.log(videoUrl)
+  
+    axios.get('http://localhost:5000/get_username')
+    .then(data => {
+      console.log(data.data)
+      this.setState({username: data.data})
+    })
+    .catch(err => {
+      console.log(err);
+    })
     axios
       .get(`http://localhost:5000/video_list/${getId}`)
       .then(data => {
-        this.setState({ username: getId });
-        console.log(this.state.username);
-        let videoData = data.data.videoList;
-        videoData.map((post) => {
-          this.state.videoList.push({videoName: post.videoName, videoID: post.videoID})
-        });
-      //  console.log(this.state.videoList[0]._id)
+        console.log(data.data);
+        let videoList = [];
+        for (let i = 0; i < data.data.videoList.length; i++) {
+          videoList.push(data.data.videoList[i])
+        }
+        //  console.log(videoList);
+        this.setState({videoList: videoList})
+        console.log()
       })
       .catch(err => {
         console.log(err);
@@ -39,21 +48,23 @@ export default class ListOfVideos extends Component {
   }
   // grab video data and pass it to the next component which is RealVideo Player 
   render() {
-    return(
-      <div>
-        {this.state.videoList.map((post)=> {
-          return(
-            <div>
-              <Link to = {`/video_player/${post.videoID}`} getVideoName={post.videoName} username={this.state.username}>
-              <h1> {post.videoName} </h1>
-               {post.videoID}
-              </Link>
-               
-              <button onClick={this.deleteVideo(post.videoID)}>Delete Video </button>
-            </div>
-          )
-        })}
-      </div>
+    return (
+        <div className = "HomePage-container">
+            {this.state.videoList.map((post) => {
+                return (
+                    <div key = {post.id} className = "HomePage-key"> 
+                        <div className = "HomePage-div"> 
+                          <Link to = {`/video_player/${post.videoID}`}>
+                          <img src = {post.videoThumbnail} alt="thumbnail_photo" width = '200' height = '150'/>
+                          </Link>
+                          <Link to = '/player' className  = "HomePage-videoName"> {post.videoName} </Link>
+                        </div>
+                   </div>
+                ); 
+            })}
+        </div>
     );
-  }
 }
+}
+
+//<img src = {post.videoThumbnail} alt="thumbnail_photo" width = '250' height = '150'/>

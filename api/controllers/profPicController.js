@@ -63,7 +63,7 @@ const viewProfilePic = (req, res) => {
     User.findOne({ username })
       .exec()
       .then(user => {
-        console.log(user)
+        // console.log(user)
         gfs.exist({ filename: user.profilePictureName }, (err, file) => {
           if (err || !file) {
             user.profilePicture = '5a623cabae2bd6411020ceb0';
@@ -78,14 +78,6 @@ const viewProfilePic = (req, res) => {
           } else {
             let data = '';
             let readstream = gfs.createReadStream({_id: user.profilePicture});
-            /*
-            readstream.pipe(res.json(readstream));
-            
-            var bucket = new GridFSBucket({
-              chunkSizeBytes: 1024,
-              bucketName: 'images'
-            });
-            */
             readstream.setEncoding('base64');
             readstream.on('data', (chunk) => {
               data += chunk;

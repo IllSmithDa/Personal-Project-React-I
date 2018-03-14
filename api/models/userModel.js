@@ -24,6 +24,13 @@ const UserSchema = new mongoose.Schema({
     },
     videoName: {
       type: String
+    },
+    videoThumbnail: {
+      type: String
+    },
+    view: {
+      type: Number,
+      default: 0
     }
   }],
 });

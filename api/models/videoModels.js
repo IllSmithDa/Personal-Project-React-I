@@ -33,7 +33,14 @@ const VideoSchema = new Schema({
         type: String
       }
     }]
-  }]
+  }],
+  views: {
+    type: Number,
+    default: 0
+  },
+  videoThumbnail: {
+    type: String
+  }
 ///  channel_name: String,
 //  viewer_count: Number,
 });

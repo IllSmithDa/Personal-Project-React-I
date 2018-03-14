@@ -19,6 +19,9 @@ module.exports = (app) => {
     .route('/addComment/:videoID')
     .post(videoControllers.addComment)
   app
+    .route('/getAllVideos')
+    .get(videoControllers.getAllVideos)
+    app
     .route('/media_create')
     .post(testControllers.createMedia)
   app

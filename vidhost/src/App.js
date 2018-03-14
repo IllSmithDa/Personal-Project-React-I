@@ -59,15 +59,7 @@ class App extends Component {
         <div className  = "HomePage__Tabs">
           <h2> Most Popular Videos </h2> 
         </div>
-        <div className = "HomePage-container">
-          {this.state.displayedPosts.map((post) => {
-            return (
-              <div >
-                <PopularVideo post = {post}/>
-                </div>
-              );
-            })}
-        </div>
+       
         <VideoLists/> 
         
       </div>
