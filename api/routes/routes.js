@@ -1,5 +1,4 @@
 const videoControllers = require('../controllers/videoControllers');
-const testControllers = require('../controllers/testController');
 const userControllers = require('../controllers/userController');
 const profPicController = require('../controllers/profPicController')
 module.exports = (app) => {
@@ -10,7 +9,7 @@ module.exports = (app) => {
     .route('/video_list/:username')
     .get(videoControllers.getVideoList)
   app 
-    .route('/streamVideo/:videoID')
+    .route('/streamVideo/:videoID/:userID')
     .get(videoControllers.streamVideo)
   app 
     .route('/videoInfo/:videoID')
@@ -21,12 +20,9 @@ module.exports = (app) => {
   app
     .route('/getAllVideos')
     .get(videoControllers.getAllVideos)
-    app
-    .route('/media_create')
-    .post(testControllers.createMedia)
   app
-    .route('/post_media')
-    .get(testControllers.getMedia)
+    .route('/delete_video/:username')
+    .post(videoControllers.deleteVideo)
   app
     .route('/user_create')
     .post(userControllers.createUser)

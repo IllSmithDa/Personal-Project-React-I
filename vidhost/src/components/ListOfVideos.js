@@ -21,7 +21,7 @@ export default class ListOfVideos extends Component {
   
     axios.get('http://localhost:5000/get_username')
     .then(data => {
-      console.log(data.data)
+      // console.log(data.data)
       this.setState({username: data.data})
     })
     .catch(err => {
@@ -30,41 +30,41 @@ export default class ListOfVideos extends Component {
     axios
       .get(`http://localhost:5000/video_list/${getId}`)
       .then(data => {
-        console.log(data.data);
+        // console.log(data.data);
         let videoList = [];
         for (let i = 0; i < data.data.videoList.length; i++) {
           videoList.push(data.data.videoList[i])
         }
         //  console.log(videoList);
         this.setState({videoList: videoList})
-        console.log()
+
       })
       .catch(err => {
         console.log(err);
       });
   };
   deleteVideo(videoId) {
-   console.log(videoId);
+   //console.log(videoId);
   }
   // grab video data and pass it to the next component which is RealVideo Player 
   render() {
     return (
-        <div className = "HomePage-container">
-            {this.state.videoList.map((post) => {
-                return (
-                    <div key = {post.id} className = "HomePage-key"> 
-                        <div className = "HomePage-div"> 
-                          <Link to = {`/video_player/${post.videoID}`}>
-                          <img src = {post.videoThumbnail} alt="thumbnail_photo" width = '200' height = '150'/>
-                          </Link>
-                          <Link to = '/player' className  = "HomePage-videoName"> {post.videoName} </Link>
-                        </div>
-                   </div>
-                ); 
-            })}
-        </div>
+      <div className = "HomePage-container">
+        {this.state.videoList.map((post) => {
+            return (
+              <div key = {post.id} className = "HomePage-key"> 
+                <div className = "HomePage-div"> 
+                  <Link to = {`/video_player/${post.videoID}`}>
+                    <img src = {post.videoThumbnail} alt="thumbnail_photo" width = '200' height = '150'/>
+                  </Link>
+                  <Link to = '/player' className  = "HomePage-videoName"> {post.videoName} </Link>
+                  </div>
+              </div>
+            );
+          })}
+      </div>
     );
-}
+  }
 }
 
 //<img src = {post.videoThumbnail} alt="thumbnail_photo" width = '250' height = '150'/>

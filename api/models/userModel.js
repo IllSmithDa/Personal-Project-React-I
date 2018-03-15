@@ -25,13 +25,35 @@ const UserSchema = new mongoose.Schema({
     videoName: {
       type: String
     },
+    videoUploader: {
+      type: String
+    },
     videoThumbnail: {
       type: String
+    },
+    thumbnailID: {
+      type:String
     },
     view: {
       type: Number,
       default: 0
-    }
+    },
+    comments : [{
+      username:{
+        type: String
+      },
+      comment: {
+        type: String
+      },
+      replies: [{
+        username:{
+          type: String
+        },
+        comment: {
+          type: String
+        }
+      }]
+    }],
   }],
 });
 

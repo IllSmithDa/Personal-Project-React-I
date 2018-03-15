@@ -5,6 +5,7 @@ import { read } from 'fs';
 import './CSS/ModalBox.css'
 import ListOfVideos from './ListOfVideos';
 import HomeTab from './HomeTab';
+import DeleteVideoList from './DeleteVideoList';
 axios.defaults.withCredentials = true;
 export default class Channel extends Component {
   constructor() {
@@ -44,15 +45,14 @@ export default class Channel extends Component {
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
 
-    /*
     axios.get('http://localhost:5000/get_username')
     .then(data => {
-      // console.log(data.data.username)
+      this.setState({ username: data.data});
     })
     .catch(err => {
       console.log(err);
     })
-    */
+  
     this.setState({ username: getId, uploadImageUrl: profileUrl, uploadVideoUrl: videoUrl});  
     // request to grab the profile picture id from the server database
     axios.get(`http://localhost:5000/show_profile_pic/${getId}`)
@@ -92,12 +92,20 @@ export default class Channel extends Component {
     let modal = document.getElementById('myModal2');
     modal.style.display = "block";
   }
+  openModal3() {
+    let modal = document.getElementById('myModal3');
+    modal.style.display = "block";
+  }
   closeModal() {
     let modal = document.getElementById('myModal');
     modal.style.display = "none";
   }
   closeModal2() {
     let modal = document.getElementById('myModal2');
+    modal.style.display = "none";
+  }
+  closeModal3() {
+    let modal = document.getElementById('myModal3');
     modal.style.display = "none";
   }
   // tru to render image from the server side
@@ -127,7 +135,7 @@ export default class Channel extends Component {
           </div>
         </div>
         <div>
-          <h1> Upload Video </h1>
+          <h1> Video Editing Kit </h1>
             <button id="myBtn2" onClick={this.openModal2}> Upload Video </button>
             <div id="myModal2" className="modal">
               <div className="modal-content">
@@ -146,6 +154,14 @@ export default class Channel extends Component {
                   <input type="file" name="video_file" onChange = {this.setTimer}/>
                   <input type='submit' value='Upload Video'/>
                 </form> 
+              </div>
+            </div>
+            <button id="myBtn3" onClick={this.openModal3}> Delete Video(s) </button>
+            <div id="myModal3" className="modal">
+              <div className="modal-content">
+                <span className="close" onClick={this.closeModal3}>&times;</span>
+                <h1>Select Which Videos you want to delete</h1>
+                <DeleteVideoList/>
               </div>
             </div>
           </div>

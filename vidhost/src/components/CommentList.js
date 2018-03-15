@@ -14,30 +14,33 @@ export default class CommentLIst extends Component {
     this.addComment = this.addComment.bind(this);
   }
   componentDidMount() {
-   // grabs the current url
-   let getId = window.location.href;
-   // grabs username inside current url 
-   getId = getId.split("/").pop();
-   axios.get(`http://localhost:5000/videoInfo/${getId}`)
-     .then(data => {
-        for (let i = 0; i <data.data.comments.length; i++) {
-          console.log(data.data.comments[i]);
-          this.state.comments.push(data.data.comments[i]);
-          // console.log(data.data.comments[i].comment)
-        }
-        //window.location = window.location.href;
-        axios.get('http://localhost:5000/get_username')
-        .then(data => {
-          this.setState({ username: data.data});
-          console.log(this.state.username);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-     })
-     .catch(err => {
-       console.log(err);
-     })
+    // grabs the current url
+    let getId = window.location.href;
+    // grabs username inside current url 
+    getId = getId.split("/").pop();
+    // window.location = window.location.href;
+    console.log('hello')
+    axios.get('http://localhost:5000/get_username')
+      .then(data => {
+        this.setState({ username: data.data});
+        // console.log(this.state.username);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    axios.get(`http://localhost:5000/videoInfo/${getId}`)
+      .then(data => {
+        console.log(data.data)
+         for (let i = 0; i <data.data.comments.length; i++) {
+           // console.log(data.data.comments[i]);
+           console.log(data.data.comments[i])
+           this.state.comments.push(data.data.comments[i]);
+           // console.log(data.data.comments[i].comment)
+         }
+      })
+      .catch(err => {
+        console.log(err);
+      })
   };
   addComment() {
     // to do 
@@ -47,14 +50,16 @@ export default class CommentLIst extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
 
-    const comment = { comment: this.state.comment, username:this.state.username }
+    const comment = { comment: this.state.comment, username: this.state.username }
+    console.log(comment);
     axios.post(`http://localhost:5000/addComment/${getId}`, comment)
       .then(data => {
+        console.log(data)
         let videoComments = [];
-        for (let i = 0; i < data.data.comments.length; i++){
-          console.log(data.data.comments[i].comment)
+        for (let i = 0; i < data.data.length; i++){
+          console.log(data.data[i])
         //  let videoObject = {commentUsername: data.data.comments[i].username, comment: data.data.comments[i].comment};
-          videoComments.push(data.data.comments[i]);
+          videoComments.push(data.data[i]);
         }
         this.setState({ comments: videoComments });
         

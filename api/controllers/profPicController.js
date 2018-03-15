@@ -1,6 +1,5 @@
 const gridfs = require('gridfs-stream');
 const mongoose = require('mongoose');
-const TestModel = require('../models/testModel');
 const User = require('../models/userModel');
 const fs = require('fs');
 const STATUS_USER_ERROR = 422;
@@ -19,42 +18,40 @@ const updateProfilePic = (req, res) => {
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(`./api/controllers/server/${sampleFile.name}`, function(err) {
     if (err) return res.status(500).send(err);
-  });
-  let writestream = gfs.createWriteStream({ filename: sampleFile.name });
-  let readStream = fs.createReadStream(`./api/controllers/server/${sampleFile.name}`).pipe(writestream)
-  
-  readStream.on('error', function (err) {
-    console.log('An error occurred!', err);
-    throw err;
-  });
-  writestream.on('close', (file) => {
-    const { username } = req.params;
-    User.findOne({username})
-    .exec()
-    .then(user => {
-      user.profilePicture = writestream.id;
-      user.profilePictureName = writestream.name;
-      user.save()
-      .then(() => {
-        fs.unlink(`./api/controllers/server/${sampleFile.name}`, err => {
-          if (err) throw err;
-          console.log('file deleted!')
+    let writestream = gfs.createWriteStream({ filename: sampleFile.name });
+    let readStream = fs.createReadStream(`./api/controllers/server/${sampleFile.name}`).pipe(writestream)
+
+    readStream.on('error', function (err) {
+      console.log('An error occurred!', err);
+      throw err;
+    });
+    writestream.on('close', (file) => {
+      const { username } = req.params;
+      User.findOne({username})
+      .exec()
+      .then(user => {
+        if (user.profilePicture !== '5a623cabae2bd6411020ceb0') {
+          gfs.remove({ _id: user.profilePicture })
+        }
+        user.profilePicture = writestream.id;
+        user.profilePictureName = writestream.name;
+        user.save()
+        .then(() => {
+          fs.unlink(`./api/controllers/server/${sampleFile.name}`, err => {
+            if (err) throw err;
+            console.log('file deleted!')
+            res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
+            res.end();  
+          });
+        })
+        .catch(err => {
+          res.status(STATUS_USER_ERROR).json({ error: err.message });
         });
-        res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
-        res.end();  
-      })
-      .catch(err => {
-        res.json({ error: err.message });
       });
     });
-  });
+  })
 }
 
-//todo 
-// create a new user model that includes a profile picture to the object model
-// use find user association with the image 
-// Only display the picture asosciated with the user
-// consider using gfs instead of fs and grab the image id from mongo and attach it to the user
 const viewProfilePic = (req, res) => {
   gridfs.mongo = mongoose.mongo;
   const connection = mongoose.connection;

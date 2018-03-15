@@ -18,7 +18,6 @@ const createUser = (req, res) => {
     });
 };
 const findUser = (req, res) => {
-  console.log(req.session)
   const { username, password } = req.body;
   User.findOne({username, password})
     .exec()
@@ -28,8 +27,6 @@ const findUser = (req, res) => {
         res.status(422).json({error: err.message})
       }
       req.session.username = username;
-      console.log(req.session.username);
-      //console.log(req.session.id);
       res.json({success: true});
     })
     .catch((err) => {
@@ -38,10 +35,7 @@ const findUser = (req, res) => {
     });
 };
 const getUserName = (req, res) => {
- // console.log(req.session.id);
-//  console.log(req.session)
   const { username } = req.session;
-  console.log(req.session.username);
   res.json(req.session.username);
 };
 module.exports = {
