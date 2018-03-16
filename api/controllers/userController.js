@@ -38,8 +38,14 @@ const getUserName = (req, res) => {
   const { username } = req.session;
   res.json(req.session.username);
 };
+const logout = (req, res) => {
+  req.session.destroy();
+  //req.session.username = undefined;
+  res.json(req.session)
+}
 module.exports = {
   createUser,
   findUser,
-  getUserName
+  getUserName,
+  logout
 };

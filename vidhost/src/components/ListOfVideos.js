@@ -21,7 +21,6 @@ export default class ListOfVideos extends Component {
   
     axios.get('http://localhost:5000/get_username')
     .then(data => {
-      // console.log(data.data)
       this.setState({username: data.data})
     })
     .catch(err => {
@@ -30,14 +29,11 @@ export default class ListOfVideos extends Component {
     axios
       .get(`http://localhost:5000/video_list/${getId}`)
       .then(data => {
-        // console.log(data.data);
         let videoList = [];
         for (let i = 0; i < data.data.videoList.length; i++) {
           videoList.push(data.data.videoList[i])
         }
-        //  console.log(videoList);
         this.setState({videoList: videoList})
-
       })
       .catch(err => {
         console.log(err);

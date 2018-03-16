@@ -23,6 +23,7 @@ export default class Channel extends Component {
     // this.getProfilePicture = this.getProfilePicture.bind(this);
     this.openModal = this.openModal.bind(this);
     this.handleVideoName = this.handleVideoName.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
   handleFilePath(e) {
     let file = e.target.defaultValue
@@ -67,7 +68,6 @@ export default class Channel extends Component {
       .catch(err => {
         console.log(err);
       })
-  
   }
   handleVideoName(e) {
      // grabs the current url
@@ -108,6 +108,17 @@ export default class Channel extends Component {
     let modal = document.getElementById('myModal3');
     modal.style.display = "none";
   }
+  logoutUser() {
+    axios.get('http://localhost:5000/user_logout')
+      .then(() => {
+        setTimeout(() => {
+          window.location = `/`;
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
   // tru to render image from the server side
   render() {
     return(
@@ -118,6 +129,7 @@ export default class Channel extends Component {
           <div>
           <img src = {this.state.profilePictureUrl} alt="profile_picture" width = '128' height = '128'/>
             <button id="myBtn" onClick={this.openModal}>Update Profile Picture</button>
+            <button id="myBtn" onClick={this.logoutUser}>Logout</button>
           </div>
           <div id="myModal" className="modal">
             <div className="modal-content">

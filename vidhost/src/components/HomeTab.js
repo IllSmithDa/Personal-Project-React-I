@@ -1,63 +1,58 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchVideo';
-import VideoList from '../VideoList';
+import axios from 'axios';
+import '../HomePage.css';
+
+axios.defaults.withCredentials = true;
+
 class HomeTab extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      arrPopVideo: [],
-      displayedPosts: []
+      loginUsername: 'Click here to Login',
+      userLink: '/login'
     } 
-
-    this.filterPosts = this.filterPosts.bind(this);
   }
 
   componentDidMount() {
-    this.setState({arrPopVideo: VideoList, displayedPosts: VideoList});
+    axios.get('http://localhost:5000/get_username')
+    .then(data => {
+      if(data.data == '') {
+        this.setState({ loginUsername: 'Click here to Login', userLink: '/login'});
+      } else {
+      this.setState({ loginUsername: data.data, userLink: `/my_channel/${data.data}`});
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
-
-  filterPosts(criterion) {
-    //if criterion is empty 
-    if (criterion === '') {
-      this.setState({displayedPosts: this.state.arrPopVideo});
-    } else {
-      const filteredPosts = this.state.arrPopVideo.filter(post => 
-        post.videoname.includes(criterion));
-      this.setState({displayedPosts: filteredPosts});
-    }
-  }
-
-    render(){
-        return(
-              <div className = "HomePage__header">
-                <div className = "HomePage__header-title">
-                  <Link to = "/">
-                  <h1 > <img src = {require("./Assets/play.png")} width = "25px" height = "25px"/>Vidhost</h1>
-                  </Link>  
-                </div>
-                <div className = "HomePage__header-search">
-                <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
-              </div>
-              <div className = "HomePage_header-un">
-                <h1> Login </h1>
-              </div>
-              <div className = "HomePage-login">
-                <div>
-                  <label htmlFor = "username"> Username/Email </label>
-                  <input type = "text" id = "username"/>
-                </div>
-                <div  className = "HomePage-Password">
-                  <label htmlFor = "password"> Password </label>
-                  <input type = "text" id = "password"/>
-                </div>
-                <div className = "HomePage__Login-Submit">
-                  <button className = "HomePage__Login-SubButton"> Submit </button>
-                </div>
-              </div>
+  
+  render() {
+    return (
+      <div>
+        <div className = "HomePage__header">
+          <div className = "HomePage__header-title">
+            <Link to = "/"><h1> <img src = {require("./Assets/play.png")} width = "25px" height= "25px"/>Vidhost</h1> </Link>  
+          </div>
+          <div className = "HomePage__header-search">
+            <SearchBar posts = {this.state.displayedPosts} filterPosts = {this.filterPosts}/>
+          </div>
+          <Link to = "/new-user">
+            <div className = "HomePage_header-un">
+              <h1> Click here to create new account </h1>
             </div>
-        );
-    }
+          </Link>
+          <Link to = {this.state.userLink}>
+            <div className = "HomePage_header-un">
+              <h1>{this.state.loginUsername}</h1>
+            </div>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default HomeTab;

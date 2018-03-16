@@ -121,18 +121,4 @@ class RealVideoPlayer extends Component {
   }
 }
 
-/*
-<div>
-  <textarea onChange = {this.handleTextChange} placeholder = "Add comment here"></textarea>
-  <button onClick={this.addComment}>submit</button>
-</div>
-*/
-
- //<CommentList username={this.state.username}/>
-
-/*
-<video width = "800" height = "600" controls>
-<source src = { require("../Assets/VTest1.mp4")} type="video/mp4"/>
-</video>
-*/
 export default RealVideoPlayer;

@@ -24,6 +24,9 @@ module.exports = (app) => {
     .route('/delete_video/:username')
     .post(videoControllers.deleteVideo)
   app
+    .route('/search_videos')
+    .post(videoControllers.searchVideos)
+  app
     .route('/user_create')
     .post(userControllers.createUser)
   app
@@ -32,6 +35,9 @@ module.exports = (app) => {
   app
     .route('/get_username')
     .get(userControllers.getUserName)
+  app
+    .route('/user_logout')
+    .get(userControllers.logout)
   app
     .route('/upload_profile_pic/:username')
     .post(profPicController.updateProfilePic)

@@ -1,6 +1,6 @@
-
+import axios from 'axios';
 import React, { Component } from 'react';
-
+axios.defaults.withCredentials = true;
 class SearchBar extends Component {
 
 	constructor () {
@@ -8,24 +8,29 @@ class SearchBar extends Component {
 		this.state = {
 			searchItem : ''
 		}
-		this.findVideo = this.findVideo.bind(this);
+		this.handleSearchTerm = this.handleSearchTerm.bind(this);
+		this.searchForVideos = this.searchForVideos.bind(this);
 	}
 
-	componentDidMount() {
-		
-	}
-	findVideo(event) {
-		this.state.searchItem = this.event.value;
+	handleSearchTerm(event) {
+		this.setState({searchItem: event.target.value})
 	}
 	submitFilter = (event) => {
 	  const criterion = this.input.value;
 	  this.props.filterPosts(criterion);
 	}
-
+	searchForVideos() {
+		if (this.state.searchItem !== '') {
+			setTimeout(() => {
+				window.location = `/video_search/${this.state.searchItem}`;
+			})
+		}
+	}
 	render() {
 		return (
 			<div className="SearchBar">
-				<input className="SearchBar-field" type="text" onChange={this.findVideo} ref={input => this.input = input} placeholder="Search"></input>
+				<input className="SearchBar-field" type="text" onChange={this.handleSearchTerm} placeholder="Search"></input> 
+				<button onClick={this.searchForVideos}>Search</button>
 			</div>
 		);
 	}

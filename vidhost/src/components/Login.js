@@ -15,11 +15,11 @@ export default class LoginMenu extends Component {
     this.handleSetPassword = this.handleSetPassword.bind(this);
     this.loginUser = this.loginUser.bind(this)
   }
-  handleSetUsername(e) {
-    this.setState({ username: e.target.value })
+  handleSetUsername(event) {
+    this.setState({ username: event.target.value })
   }
-  handleSetPassword(e) {
-    this.setState({ password: e.target.value })
+  handleSetPassword(event) {
+    this.setState({ password: event.target.value })
   }
   loginUser(e) {
     e.preventDefault();

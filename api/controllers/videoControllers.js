@@ -223,7 +223,26 @@ const getAllVideos = (req, res) => {
       res.status(422).json({ error: err.message });
     });
 };
-
+const searchVideos = (req, res) => {
+  let {searchTerm} = req.body;
+  searchTerm = searchTerm.replace(/%20/g, " ");
+  console.log(searchTerm);
+  User.find({})
+    .then(data => { 
+      let videoList = [];
+      for(let i = 0; i < data.length; i++) {
+        for(let j = 0; j < data[i].videoList.length; j++) {
+          if (searchTerm === data[i].videoList[j].videoName) {
+          videoList.push(data[i].videoList[j])
+          }
+        }
+      }
+      res.status(200).json(videoList);
+    })
+    .catch(err => {
+      res.status(SERVER_ERROR_STATUS).json({ error: err.message })
+    });
+};
 module.exports = {
   getVideoList,
   uploadVideo, 
@@ -231,5 +250,6 @@ module.exports = {
   getVideoInfo,
   addComment,
   deleteVideo,
-  getAllVideos
+  getAllVideos,
+  searchVideos
 }
