@@ -11,7 +11,7 @@ class SearchBar extends Component {
 		this.handleSearchTerm = this.handleSearchTerm.bind(this);
 		this.searchForVideos = this.searchForVideos.bind(this);
 	}
-
+	
 	handleSearchTerm(event) {
 		this.setState({searchItem: event.target.value})
 	}

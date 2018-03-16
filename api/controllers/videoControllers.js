@@ -149,7 +149,6 @@ const addComment = (req, res) => {
   const {videoID} = req.params;
   User.findOne({videoUploader})
     .then((user) => {
-      console.log(user)
       for(let j = 0; j < user.videoList.length; j++) {
         if (user.videoList[j].videoID === videoID) {
           user.videoList[j].comments.push({comment: comment, username: username})
@@ -159,7 +158,6 @@ const addComment = (req, res) => {
       user
         .save()
         .then((data) => {
-          console.log('help')
           // return data back to the client side
           res.json(data.videoList[index].comments);
         })
