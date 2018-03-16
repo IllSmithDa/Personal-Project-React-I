@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../HomePage.css';
-import VideoLists from '../components/VideoLists';
-import RealVideoPlayer from '../components/RealVideoPlayer';
 import HomeTab from '../components/HomeTab'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -49,7 +47,7 @@ class App extends Component {
                               </Link>
                               <Link to = '/player' className  = "HomePage-videoName"> {post.videoName} </Link>
                               <div>
-                                <p2 className = "HomePage-channelName"> channel: {post.videoUploader}</p2> <br/>      
+                                <p className = "HomePage-channelName"> channel: {post.videoUploader}</p> <br/>      
                               </div>
                             </div>
                        </div>

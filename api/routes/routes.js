@@ -1,6 +1,7 @@
 const videoControllers = require('../controllers/videoControllers');
 const userControllers = require('../controllers/userController');
 const profPicController = require('../controllers/profPicController')
+const middleware = require('../controllers/middleware/middleware')
 module.exports = (app) => {
   app
     .route('/upload_video/:username')
@@ -18,6 +19,12 @@ module.exports = (app) => {
     .route('/addComment/:videoID')
     .post(videoControllers.addComment)
   app
+    .route('/get_replies')
+    .post(videoControllers.getReplies)
+  app
+    .route('/add_reply')
+    .post(videoControllers.addReply)
+  app
     .route('/getAllVideos')
     .get(videoControllers.getAllVideos)
   app
@@ -28,7 +35,7 @@ module.exports = (app) => {
     .post(videoControllers.searchVideos)
   app
     .route('/user_create')
-    .post(userControllers.createUser)
+    .post(middleware.hashedPassword, userControllers.createUser)
   app
     .route('/find_user')
     .post(userControllers.findUser)

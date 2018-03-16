@@ -7,7 +7,7 @@ const Video = require('../models/videoModels');
 const fs = require('fs');   
 const STATUS_USER_ERROR = 422;
 
-const SERVER_ERROR_STATUS = 500;
+const STATUS_SERVER_ERROR = 500;
 
 const uploadVideo = (req, res) => {
   gridfs.mongo = mongoose.mongo;
@@ -169,6 +169,57 @@ const addComment = (req, res) => {
       res.json({ error: err.message });
     });
 };
+
+const addReply = (req, res) => {
+  const {replayStatement, videoUploader, username, videoID, index} = req.body;
+  User.findOne({username: videoUploader})
+    .then(user => {
+      let commentIndex = 0;
+      for (i = 0; i < user.videoList.length; i++) {
+        if (user.videoList[i].videoID === videoID) {
+          user.videoList[i].comments[index].replies.push({username: username, comment: replayStatement})
+          commentIndex = i;
+          break;
+        } 
+      }
+      user
+        .save()
+        .then((data) => {
+          res.status(200).json(data.videoList[commentIndex].comments[index].replies)
+        })
+        .catch(err => {
+          res.status(STATUS_SERVER_ERROR).json({ error: err.message });
+        })
+    })
+    .catch(err => {
+      res.status(STATUS_SERVER_ERROR).json({ error: err.message });
+    })
+}
+const getReplies = (req, res) => {
+  const {videoUploader, videoID, index} = req.body;
+  User.findOne({username: videoUploader})
+    .then(user => {
+      let commentIndex = 0;
+      for (i = 0; i < user.videoList.length; i++) {
+        if (user.videoList[i].videoID === videoID) {
+          commentIndex = i;
+          break;
+        } 
+      }
+      user
+        .save()
+        .then((data) => {
+          res.status(200).json(data.videoList[commentIndex].comments[index].replies)
+        })
+        .catch(err => {
+          res.status(STATUS_SERVER_ERROR).json({ error: err.message });
+        })
+    })
+    .catch(err => {
+      res.status(STATUS_SERVER_ERROR).json({ error: err.message });
+    })
+}
+
 const deleteVideo = (req, res) => {
   const connection = mongoose.connection;
   gridfs.mongo = mongoose.mongo;
@@ -247,7 +298,9 @@ module.exports = {
   streamVideo,
   getVideoInfo,
   addComment,
+  addReply,
   deleteVideo,
   getAllVideos,
-  searchVideos
+  searchVideos,
+  getReplies
 }

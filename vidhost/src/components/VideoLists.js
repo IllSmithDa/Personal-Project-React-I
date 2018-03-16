@@ -36,7 +36,7 @@ class VideoLists extends Component {
                               </Link>
                               <Link to = '/player' className  = "HomePage-videoName"> {post.videoName} </Link>
                               <div>
-                                <p2 className = "HomePage-channelName"> channel: {post.videoUploader}</p2> <br/>      
+                                <p className = "HomePage-channelName"> channel: {post.videoUploader}</p> <br/>      
                               </div>
                             </div>
                        </div>

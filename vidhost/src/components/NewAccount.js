@@ -23,7 +23,6 @@ export default class NewAccount extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log(newUser)
     axios
       .post('http://localhost:5000/user_create', newUser)
       .then(data => {

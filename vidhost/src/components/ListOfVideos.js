@@ -10,7 +10,6 @@ export default class ListOfVideos extends Component {
       username: '',
       videoList: []
     }
-    this.deleteVideo = this.deleteVideo.bind(this);
   }
 
   componentDidMount() {
@@ -39,9 +38,6 @@ export default class ListOfVideos extends Component {
         console.log(err);
       });
   };
-  deleteVideo(videoId) {
-   //console.log(videoId);
-  }
   // grab video data and pass it to the next component which is RealVideo Player 
   render() {
     return (
@@ -62,5 +58,3 @@ export default class ListOfVideos extends Component {
     );
   }
 }
-
-//<img src = {post.videoThumbnail} alt="thumbnail_photo" width = '250' height = '150'/>

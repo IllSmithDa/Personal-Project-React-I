@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ImageUploader from 'react-images-upload';
-import { read } from 'fs';
-import './CSS/ModalBox.css'
+import './CSS/ModalBox.css';
 import ListOfVideos from './ListOfVideos';
 import HomeTab from './HomeTab';
 import DeleteVideoList from './DeleteVideoList';
@@ -18,16 +16,11 @@ export default class Channel extends Component {
       videoName:'',
       channeVideoList: []
     }
-    this.handleFilePath = this.handleFilePath.bind(this);
     this.setTimer = this.setTimer.bind(this);
-    // this.getProfilePicture = this.getProfilePicture.bind(this);
     this.openModal = this.openModal.bind(this);
     this.handleVideoName = this.handleVideoName.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
   }
-  handleFilePath(e) {
-    let file = e.target.defaultValue
-  }; 
   setTimer() {
     window.setTimeout(() => {
       console.log('image loaded')
@@ -41,7 +34,6 @@ export default class Channel extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
-   // console.log(getId);
     // two urls which will later make requests to
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
@@ -60,7 +52,6 @@ export default class Channel extends Component {
       .then((data) => { 
         // grab the encoded data, decode it and set it as the picture url 
         let newData = data.data;
- //       console.log('componentMountWillMount was called');
         let newString = `data:image/png;base64, ${newData}`;
         newString = newString.replace(/\s/g, "");
         this.setState({profilePictureUrl: newString});  
@@ -70,21 +61,9 @@ export default class Channel extends Component {
       })
   }
   handleVideoName(e) {
-     // grabs the current url
-     let getId = window.location.href;
-     // grabs username inside current url 
-     getId = getId.split("/").pop();
-
     this.setState({ videoName: e.target.value })
-    // let videoName = e.target.value;
-   // console.log(this.state.videoName);
-   // let videoUrl = `http://localhost:5000/upload_video/${getId}/${this.state.videoName}`;
-  //  this.setState({ uploadVideoUrl:videoUrl });
-  //  console.log(this.state.uploadVideoUrl);
   }
   openModal() {
-   // console.log(this.state.profilePictureUrl)
- //  console.log(this.state.uploadVideoUrl)
     let modal = document.getElementById('myModal');
     modal.style.display = "block";
   }
@@ -183,14 +162,3 @@ export default class Channel extends Component {
     )
   }
 } 
-
-/*
-  <form ref='uploadForm' 
-                  id='uploadForm' 
-                  action= {this.state.uploadVideoUrl}
-                  method='post' 
-                  encType="multipart/form-data">
-                  <input type="file" name="video_file" />
-                  <input type='submit' value='Upload Video'/>
-                </form> 
-            */
