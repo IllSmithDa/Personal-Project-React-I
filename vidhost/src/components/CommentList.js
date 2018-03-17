@@ -43,8 +43,8 @@ export default class CommentLIst extends Component {
     let getId = window.location.href;
     // grabs video url inside current url 
     getId = getId.split("/").pop();
-    const comment = { comment: this.state.comment, username: this.state.username }
-    axios.post(`http://localhost:5000/addComment/${getId}`, comment)
+    const comments = { comment: this.state.comment, username: this.state.username, videoUploader: this.state.videoUploader}
+    axios.post(`http://localhost:5000/addComment/${getId}`, comments)
       .then(data => {
         let videoComments = [];
         for (let i = 0; i < data.data.length; i++){
@@ -59,6 +59,7 @@ export default class CommentLIst extends Component {
   handleTextChange(e) {
     let comment = e.target.value;
     this.setState({ comment: comment});
+    console.log(this.state.comment)
   }
   onReplyClick() {
     this.setState({ replyHidden: false })

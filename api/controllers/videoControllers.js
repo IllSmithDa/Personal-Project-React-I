@@ -147,8 +147,9 @@ const getVideoInfo = (req, res) => {
 const addComment = (req, res) => {
   const {comment, username, videoUploader} = req.body;
   const {videoID} = req.params;
-  User.findOne({videoUploader})
+  User.findOne({username: videoUploader})
     .then((user) => {
+      let index = 0;
       for(let j = 0; j < user.videoList.length; j++) {
         if (user.videoList[j].videoID === videoID) {
           user.videoList[j].comments.push({comment: comment, username: username})
