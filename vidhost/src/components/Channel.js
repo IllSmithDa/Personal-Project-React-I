@@ -10,11 +10,12 @@ export default class Channel extends Component {
     super();
     this.state = {  
       username: '',
+      channnelName:'',
       profilePictureUrl:'',
       uploadImageUrl: '',
       uploadVideoUrl: '',
       videoName:'',
-      channeVideoList: []
+      channeVideoList: [],
     }
     this.setTimer = this.setTimer.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -34,6 +35,8 @@ export default class Channel extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
+    this.setState({channnelName: getId})
+    console.log(getId);
     // two urls which will later make requests to
     let profileUrl = `http://localhost:5000/upload_profile_pic/${getId}`;
     let videoUrl = `http://localhost:5000/upload_video/${getId}`;
@@ -100,65 +103,79 @@ export default class Channel extends Component {
   }
   // tru to render image from the server side
   render() {
-    return(
-      <div>
-         <HomeTab/>
-        <h1>{this.state.username}'s Channel</h1>
+    if (this.state.channnelName === this.state.username) {
+      return(
         <div>
+           <HomeTab/>
+          <h1>{this.state.channnelName}'s Channel</h1>
           <div>
-          <img src = {this.state.profilePictureUrl} alt="profile_picture" width = '128' height = '128'/>
-            <button id="myBtn" onClick={this.openModal}>Update Profile Picture</button>
-            <button id="myBtn" onClick={this.logoutUser}>Logout</button>
-          </div>
-          <div id="myModal" className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={this.closeModal}>&times;</span>
-              <h1>Upload New Profile Picture Here</h1>
-              <form ref='uploadForm' 
-                id='uploadForm' 
-                action= {this.state.uploadImageUrl}
-                method='post' 
-                encType="multipart/form-data">
-                <input type="file" name="profPictureFile" onChange = {this.setTimer}/>
-                <input type='submit' value='Upload'/>
-              </form> 
+            <div>
+            <img src = {this.state.profilePictureUrl} alt="profile_picture" width = '128' height = '128'/>
+              <button id="myBtn" onClick={this.openModal}>Update Profile Picture</button>
+              <button id="myBtn" onClick={this.logoutUser}>Logout</button>
             </div>
-          </div>
-        </div>
-        <div>
-          <h1> Video Editing Kit </h1>
-            <button id="myBtn2" onClick={this.openModal2}> Upload Video </button>
-            <div id="myModal2" className="modal">
+            <div id="myModal" className="modal">
               <div className="modal-content">
-                <span className="close" onClick={this.closeModal2}>&times;</span>
-                <h1>Upload New Video Here</h1>
+                <span className="close" onClick={this.closeModal}>&times;</span>
+                <h1>Upload New Profile Picture Here</h1>
                 <form ref='uploadForm' 
                   id='uploadForm' 
-                  name = {this.state.videoName}
-                  action= {this.state.uploadVideoUrl}
+                  action= {this.state.uploadImageUrl}
                   method='post' 
-                  encType="multipart/form-data"
-                  >
-                  <h2> {'Enter Video Name: '}
-                  <input tupe= 'text' name='videoName' onChange = {this.handleVideoName}/>
-                  </h2>
-                  <input type="file" name="video_file" onChange = {this.setTimer}/>
-                  <input type='submit' value='Upload Video'/>
+                  encType="multipart/form-data">
+                  <input type="file" name="profPictureFile" onChange = {this.setTimer}/>
+                  <input type='submit' value='Upload'/>
                 </form> 
               </div>
             </div>
-            <button id="myBtn3" onClick={this.openModal3}> Delete Video(s) </button>
-            <div id="myModal3" className="modal">
-              <div className="modal-content">
-                <span className="close" onClick={this.closeModal3}>&times;</span>
-                <h1>Select Which Videos you want to delete</h1>
-                <DeleteVideoList/>
+          </div>
+          <div>
+            <h1> Video Editing Kit </h1>
+              <button id="myBtn2" onClick={this.openModal2}> Upload Video </button>
+              <div id="myModal2" className="modal">
+                <div className="modal-content">
+                  <span className="close" onClick={this.closeModal2}>&times;</span>
+                  <h1>Upload New Video Here</h1>
+                  <form ref='uploadForm' 
+                    id='uploadForm' 
+                    name = {this.state.videoName}
+                    action= {this.state.uploadVideoUrl}
+                    method='post' 
+                    encType="multipart/form-data"
+                    >
+                    <h2> {'Enter Video Name: '}
+                    <input tupe= 'text' name='videoName' onChange = {this.handleVideoName}/>
+                    </h2>
+                    <input type="file" name="video_file" onChange = {this.setTimer}/>
+                    <input type='submit' value='Upload Video'/>
+                  </form> 
+                </div>
+              </div>
+              <button id="myBtn3" onClick={this.openModal3}> Delete Video(s) </button>
+              <div id="myModal3" className="modal">
+                <div className="modal-content">
+                  <span className="close" onClick={this.closeModal3}>&times;</span>
+                  <h1>Select Which Videos you want to delete</h1>
+                  <DeleteVideoList/>
+                </div>
               </div>
             </div>
+            <h1> Featured Videos </h1>
+            <ListOfVideos/>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+           <HomeTab/>
+          <h1>{this.state.channnelName}'s Channel</h1>
+          <div>
+            <img src = {this.state.profilePictureUrl} alt="profile_picture" width = '128' height = '128'/>
           </div>
           <h1> Featured Videos </h1>
           <ListOfVideos/>
-      </div>
-    )
-  }
+        </div>
+      )
+    }
+  } 
 } 
