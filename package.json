@@ -18,8 +18,6 @@
   },
   "homepage": "https://github.com/IllSmithDa/Personal-Project-React-I#readme",
   "dependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.0.13",
-    "@ffmpeg-installer/win32-x64": "^4.0.2",
     "GridFS": "^0.3.0",
     "bcrypt": "^1.0.3",
     "binaryjs": "^0.2.1",
