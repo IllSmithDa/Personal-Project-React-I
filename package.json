@@ -38,6 +38,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "gridfs-stream": "^1.1.1",
+    "jwt-simple": "^0.5.1",
     "mocha": "^4.0.1",
     "mongoose": "^4.13.7",
     "mongoose-gridfs": "^0.3.2",
