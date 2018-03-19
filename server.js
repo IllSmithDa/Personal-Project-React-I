@@ -17,7 +17,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://theblackmesa:Waswaswas1928#@ds117469.mlab.com:17469/vidhost', { useMongoClient: true });
 server.use(bodyParser.json());
 const corsOption = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5000',
   credentials: true,
 };
 server.use(cors(corsOption));
