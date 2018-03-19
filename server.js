@@ -34,7 +34,7 @@ server.listen(process.env.PORT, () => {
 });
 
 server.use(session({
-  //store: new MongoStore({url: 'mongodb://127.0.0.1:27017/vidhost_users'}),
+  store: new MongoStore({url: 'mongodb://127.0.0.1:27017/vidhost_users'}),
   secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
   resave: false,
   saveUninitialized: false,
