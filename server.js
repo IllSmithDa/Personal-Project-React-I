@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000;
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1/vidhost_users', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/vidhost_users', { useMongoClient: true });
 server.use(bodyParser.json());
 const corsOption = {
   origin: 'http://localhost:5000',
@@ -34,7 +34,7 @@ server.listen(process.env.PORT, () => {
 });
 
 server.use(session({
-  store: new MongoStore({url: 'mongodb://127.0.0.1/vidhost_users'}),
+  store: new MongoStore({url: 'mongodb://localhost/vidhost_users'}),
   secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
   resave: false,
   saveUninitialized: false,
