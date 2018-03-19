@@ -91,7 +91,7 @@ export default class Channel extends Component {
     modal.style.display = "none";
   }
   logoutUser() {
-    axios.get('http://localhost:5000/user_logout')
+    axios.get('https://vidhost-backend.herokuapp.com/user_logout')
       .then(() => {
         setTimeout(() => {
           window.location = `/`;

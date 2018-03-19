@@ -18,7 +18,7 @@ export default class ListOfVideos extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
   
-    axios.get('http://localhost:5000/get_username')
+    axios.get('https://vidhost-backend.herokuapp.com/get_username')
     .then(data => {
       this.setState({username: data.data})
     })
@@ -26,7 +26,7 @@ export default class ListOfVideos extends Component {
       console.log(err);
     })
     axios
-      .get(`http://localhost:5000/video_list/${getId}`)
+      .get(`https://vidhost-backend.herokuapp.com/video_list/${getId}`)
       .then(data => {
         let videoList = [];
         for (let i = 0; i < data.data.videoList.length; i++) {

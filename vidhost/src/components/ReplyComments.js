@@ -61,7 +61,7 @@ export default class ReplyComments extends Component {
 
     const newReply = ({replayStatement: this.state.replayStatement, videoUploader: this.state.videoUploader, 
       username: this.state.username, videoID: videoID, index: this.props.index})
-    axios.post('http://localhost:5000/add_reply', newReply)
+    axios.post('https://vidhost-backend.herokuapp.com/add_reply', newReply)
       .then(data => {
         this.setState({replies: data.data, isReplyClicked: false, isRepliesHidden: false})
       })

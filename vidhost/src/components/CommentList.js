@@ -21,14 +21,14 @@ export default class CommentLIst extends Component {
     let getId = window.location.href;
     // grabs videoID inside current url 
     getId = getId.split("/").pop();
-    axios.get('http://localhost:5000/get_username')
+    axios.get('https://vidhost-backend.herokuapp.com/get_username')
       .then(data => {
         this.setState({ username: data.data});
       })
       .catch(err => {
         console.log(err);
       })
-    axios.get(`http://localhost:5000/videoInfo/${getId}`)
+    axios.get(`https://vidhost-backend.herokuapp.com/${getId}`)
       .then(data => {
          for (let i = 0; i <data.data.comments.length; i++) {
           this.state.comments.push(data.data.comments[i]);

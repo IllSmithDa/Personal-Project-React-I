@@ -24,10 +24,10 @@ export default class NewAccount extends Component {
       password: this.state.password
     };
     axios
-      .post('http://localhost:5000/user_create', newUser)
+      .post('https://vidhost-backend.herokuapp.com/user_create', newUser)
       .then(data => {
         const user = { username: this.state.username, password: this.state.password };
-        axios.post('http://localhost:5000/find_user', user)
+        axios.post('https://vidhost-backend.herokuapp.com/find_user', user)
         .then(data => {
           setTimeout(() => {
             window.location = `/my_channel/${this.state.username}`;
