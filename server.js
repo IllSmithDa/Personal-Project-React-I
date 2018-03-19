@@ -38,7 +38,6 @@ server.use(session({
   secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
   resave: false,
   saveUninitialized: false,
-  rolling: false,
   cookie: {
     secure: false,
     expires: 999999999,
