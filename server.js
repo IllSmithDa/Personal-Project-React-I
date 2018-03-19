@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000;
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds117469.mlab.com:17469/vidhost', { useMongoClient: true });
+mongoose.connect('mongodb://theblackmesa:Waswaswas1928#@ds117469.mlab.com:17469/vidhost', { useMongoClient: true });
 server.use(bodyParser.json());
 const corsOption = {
   origin: 'http://localhost:3000',
@@ -34,7 +34,7 @@ server.listen(process.env.PORT, () => {
 });
 
 server.use(session({
-  store: new MongoStore({url: 'mongodb://<dbuser>:<dbpassword>@ds117469.mlab.com:17469/vidhost'}),
+  store: new MongoStore({url: 'mongodb://theblackmesa:Waswaswas1928#@ds117469.mlab.com:17469/vidhost'}),
   secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
   resave: false,
   saveUninitialized: false,
