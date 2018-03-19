@@ -17,6 +17,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/vidhost_users', { useMongoClient: true });
 server.use(bodyParser.json());
 const corsOption = {
+  origin: 'https://vidhost.herokuapp.com',
   credentials: true,
 };
 server.use(cors(corsOption));
