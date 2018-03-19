@@ -29,7 +29,7 @@ connection.on('error', console.error.bind(console, 'connection error:'));
 connection.once('open', () => {
   routes(server);
 });
-server.listen(port, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${port}.`);
 });
 
