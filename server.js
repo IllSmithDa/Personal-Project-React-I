@@ -36,7 +36,7 @@ server.listen(process.env.PORT, () => {
 
 server.use(session({
   store: new MongoStore({url: `mongodb://${config.username}:${config.password}@ds117469.mlab.com:17469/vidhost`}),
-  secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+  secret: config.secret,
   resave: false,
   saveUninitialized: false,
   cookie: {
