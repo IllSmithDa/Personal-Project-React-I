@@ -10,7 +10,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const server = express();
 const routes = require('./api/routes/routes');
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 
 mongoose.Promise = global.Promise;
