@@ -19,7 +19,7 @@ class App extends Component {
     // grabs username inside current url 
     searchItem = searchItem.split("/").pop();
     const searchVideo = ({ searchTerm: searchItem })
-    axios.post('https://vidhost-backend.herokuapp.com/search_videos', searchVideo)
+    axios.post('http://localhost:5000/search_videos', searchVideo)
       .then(data => {
         let videoList = [];
         for (let i = 0; i < data.data.length; i++) {

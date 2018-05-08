@@ -16,7 +16,7 @@ class HomeTab extends Component {
   }
   componentDidMount() {
    // console.log('hello')
-    axios.get('https://vidhost-backend.herokuapp.com/get_username')
+    axios.get('http://localhost:5000/get_username')
       .then(data => {
         if(data.data === '') {
           console.log(data.data)

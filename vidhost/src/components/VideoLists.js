@@ -11,7 +11,7 @@ class VideoLists extends Component {
       }
   }
     componentDidMount() {
-      axios.get('https://vidhost-backend.herokuapp.com/getAllVideos')
+      axios.get('http://localhost:5000/getAllVideos')
         .then(data => {  
           let videoList = []
           for (let i = 0; i < data.data.length; i++) {

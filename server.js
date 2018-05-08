@@ -10,15 +10,15 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const server = express();
 const routes = require('./api/routes/routes');
-const port = process.env.PORT || 5000;
-const config = require('./config')
+const config = require('./config');
+const port = 5000;
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${config.username}:${config.password}@ds117469.mlab.com:17469/vidhost`, { useMongoClient: true });
+mongoose.connect('mongodb://localhost/vidhost_users', { useMongoClient: true });
 server.use(bodyParser.json());
 const corsOption = {
-  origin: 'https://vidhost.herokuapp.com/',
+  origin: 'http://localhost:3000',
   credentials: true,
 };
 server.use(cors(corsOption));
@@ -30,15 +30,16 @@ connection.on('error', console.error.bind(console, 'connection error:'));
 connection.once('open', () => {
   routes(server);
 });
-server.listen(process.env.PORT, () => {
-  console.log(`Server is listening on port ${process.env.PORT}.`);
+server.listen(port, () => {
+  console.log(`Server is listening on port ${port}.`);
 });
 
 server.use(session({
-  store: new MongoStore({url: `mongodb://${config.username}:${config.password}@ds117469.mlab.com:17469/vidhost`}),
-  secret: config.secret,
+  store: new MongoStore({url: 'mongodb://localhost/vidhost_users'}),
+  secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
   resave: false,
   saveUninitialized: false,
+  rolling: false,
   cookie: {
     secure: false,
     expires: 999999999,

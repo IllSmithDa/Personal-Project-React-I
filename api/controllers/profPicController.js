@@ -5,6 +5,7 @@ const fs = require('fs');
 const STATUS_USER_ERROR = 422;
 
 const updateProfilePic = (req, res) => {
+  console.log('hello')
   const connection = mongoose.connection;
   gridfs.mongo = mongoose.mongo;
   const gfs = gridfs(connection.db);
@@ -30,9 +31,8 @@ const updateProfilePic = (req, res) => {
       User.findOne({username})
       .exec()
       .then(user => {
-        if (user.profilePicture !== '5a623cabae2bd6411020ceb0') {
-          gfs.remove({ _id: user.profilePicture })
-        }
+        console.log('sdfasdf');
+        gfs.remove({ _id: user.profilePicture });
         user.profilePicture = writestream.id;
         user.profilePictureName = writestream.name;
         user.save()
@@ -57,21 +57,34 @@ const viewProfilePic = (req, res) => {
   const connection = mongoose.connection;
   const gfs = gridfs(connection.db);
   const { username } = req.params;
+  let data = '';
     User.findOne({ username })
       .exec()
       .then(user => {
         // console.log(user)
         gfs.exist({ filename: user.profilePictureName }, (err, file) => {
           if (err || !file) {
-            user.profilePicture = '5a623cabae2bd6411020ceb0';
-            let readstream = gfs.createReadStream({_id: user.profilePicture});
-            readstream.setEncoding('base64');
-            readstream.on('data', (chunk) => {
-              data += chunk;
+            let writestream = gfs.createWriteStream({ filename: 'defaultpic1.png' });
+            let readstream = fs.createReadStream(`./api/controllers/assets/defaultpic1.png`).pipe(writestream);
+           
+            writestream.on('close', () => {
+              user.profilePicture = writestream.id;
+              user.profilePictureName = writestream.name;
+              user.save()
+              .then(() => {
+                readstream = gfs.createReadStream({ filename: 'defaultpic1.png' });
+                // user.profilePicture = '5a623cabae2bd6411020ceb0';
+                // let readstream = gfs.createReadStream({_id: user.profilePicture});
+                readstream.setEncoding('base64');
+                readstream.on('data', (chunk) => {
+                  data += chunk;
+                })
+                readstream.on('end' , () => {
+                  res.json(data);
+                });
+              })
             })
-            readstream.on('end' , () => {
-              res.json(data);
-            });
+           
           } else {
             let data = '';
             let readstream = gfs.createReadStream({_id: user.profilePicture});

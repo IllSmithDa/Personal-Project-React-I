@@ -24,7 +24,7 @@ export default class LoginMenu extends Component {
   loginUser(e) {
     e.preventDefault();
     const user = { username: this.state.username, password: this.state.password };
-    axios.post('https://vidhost-backend.herokuapp.com/find_user', user)
+    axios.post('http://localhost:5000/find_user', user)
     .then(data => {
       setTimeout(() => {
         this.state.loginName.setUserName(this.state.username);

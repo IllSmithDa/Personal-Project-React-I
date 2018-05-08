@@ -37,16 +37,19 @@ const uploadVideo = (req, res) => {
     });
     writestream2.on('close', (file) => {
       let data = '';
+      console.log('hello2')
       let readstream3 = gfs .createReadStream({_id: writestream2.id});
       readstream3.setEncoding('base64');
       readstream3.on('data', (chunk) => {
         data += chunk;
       })
       readstream3.on('end' , () => {
+        console.log('hello3')
         let newString = `data:image/png;base64, ${data}`;
         newString = newString.replace(/\s/g, "");
         let writestream = gfs.createWriteStream({ filename: videoName });
         let readStream = fs.createReadStream(`./api/controllers/server/${videoName}`).pipe(writestream);
+        console.log('hello34')
         readStream.on('error', function (err) {
           console.log('An error occurred!', err);
           throw err;
@@ -55,13 +58,17 @@ const uploadVideo = (req, res) => {
           User.findOne({username})
           .exec()
           .then(user => {
+            console.log('aefaf')
             const newVideo = {videoID: writestream.id, videoName: videoName, videoThumbnail: newString, thumbnailID: writestream2.id, videoUploader: username }
+            console.log(user.videoList ); 
             user.videoList.push(newVideo)
             user.save()
             .then(() => {
               fs.unlink(`./api/controllers/server/${videoName}`, err => {
                 if (err) throw err;
+                console.log('errror')
               });
+              console.log('hello3wef')
               res.writeHead(301, {Location: `http://localhost:3000/my_channel/${username}`})
               res.end();
             })

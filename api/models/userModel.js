@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: '5a623cabae2bd6411020ceb0'
   },
   profilePictureName: {
     type: String,
@@ -55,6 +54,6 @@ const UserSchema = new mongoose.Schema({
       }]
     }],
   }],
-});
+}, { usePushEach: true });
 
 module.exports = mongoose.model('User', UserSchema);

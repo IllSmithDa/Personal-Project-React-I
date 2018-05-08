@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/*.test.js"
+    "test": "mocha tests/*.test.js",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -36,9 +37,7 @@
     "fs": "0.0.1-security",
     "gridfs-stream": "^1.1.1",
     "jwt-simple": "^0.5.1",
-    "migrate-mongoose": "^3.2.2",
     "mocha": "^4.0.1",
-    "mongodb": "^3.0.4",
     "mongoose": "^4.13.7",
     "mongoose-gridfs": "^0.3.2",
     "morgan": "^1.9.0",

@@ -20,7 +20,7 @@ export default class ListOfVideos extends Component {
     // grabs username inside current url 
     getId = getId.split("/").pop();
   
-    axios.get('https://vidhost-backend.herokuapp.com/get_username')
+    axios.get('http://localhost:5000/get_username')
     .then(data => {
       this.setState({username: data.data})
     })
@@ -28,7 +28,7 @@ export default class ListOfVideos extends Component {
       console.log(err);
     })
     axios
-      .get(`https://vidhost-backend.herokuapp.com/video_list/${getId}/${this.state.username}`)
+      .get(`http://localhost:5000/video_list/${getId}/${this.state.username}`)
       .then(data => {
         let videoList = [];
         for (let i = 0; i < data.data.videoList.length; i++) {
@@ -43,7 +43,7 @@ export default class ListOfVideos extends Component {
   deleteVideos() {
     const videoDelete = this.state.videoIdDelete;
     axios
-      .post(`https://vidhost-backend.herokuapp.com/delete_video/${this.state.username}`, videoDelete)
+      .post(`http://localhost:5000/delete_video/${this.state.username}`, videoDelete)
       .then(() => {
         window.location = `/my_channel/${this.state.username}`;
       })

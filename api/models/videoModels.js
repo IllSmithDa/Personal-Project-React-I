@@ -43,7 +43,7 @@ const VideoSchema = new Schema({
   }
 ///  channel_name: String,
 //  viewer_count: Number,
-});
+},{ usePushEach: true });
 
 VideoSchema.methods.getVideoName = function() {
   return this.video_name;

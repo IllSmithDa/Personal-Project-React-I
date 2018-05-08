@@ -29,10 +29,10 @@ class RealVideoPlayer extends Component {
     let getId = window.location.href;
     // grabs username inside current url 
     getId = getId.split("/").pop();
-     axios.get('https://vidhost-backend.herokuapp.com/get_username')
+     axios.get('http://localhost:5000/get_username')
      .then(data => {
         this.setState({ username: data.data})
-        axios.get(`https://vidhost-backend.herokuapp.com/videoInfo/${getId}`)
+        axios.get(`http://localhost:5000/videoInfo/${getId}`)
           .then(data => {
           this.setState({videoID: getId, videoName: data.data.videoName, 
           videoUploader: data.data.videoUploader
